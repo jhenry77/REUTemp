@@ -83,6 +83,7 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
         {
             if (m_Subsystem == null)
                 return;
+            
 
             UpdateRenderingVisibility(m_LeftHandGameObjects, m_Subsystem.leftHand.isTracked);
             UpdateRenderingVisibility(m_RightHandGameObjects, m_Subsystem.rightHand.isTracked);
@@ -150,6 +151,7 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
                     m_VelocityPrefab);
             }
 
+            
             UpdateRenderingVisibility(m_LeftHandGameObjects, m_Subsystem.leftHand.isTracked);
             UpdateRenderingVisibility(m_RightHandGameObjects, m_Subsystem.rightHand.isTracked);
 
@@ -210,6 +212,9 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
 
             bool leftHandTracked = subsystem.leftHand.isTracked;
             bool rightHandTracked = subsystem.rightHand.isTracked;
+
+            if (leftHandTracked)
+
 
             if (m_PreviousDrawMeshes != m_DrawMeshes)
             {
