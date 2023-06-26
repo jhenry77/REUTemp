@@ -5,7 +5,7 @@ using Unity.XR.CoreUtils;
 using Mirror;
 namespace UnityEngine.XR.Hands
 {
-    public class TestingHandViz : NetworkBehaviour
+    public class UpdatedLocalHandViz : MonoBehaviour
     {
        
         [SerializeField]
@@ -16,12 +16,6 @@ namespace UnityEngine.XR.Hands
 
         [SerializeField]
         GameObject m_RightWristLoc;
-
-        [SerializeField]
-        GameObject m_LeftController;
-
-        [SerializeField]
-        GameObject m_RightController;
 
 
 
@@ -89,20 +83,12 @@ namespace UnityEngine.XR.Hands
             bool leftHandTracked = subsystem.leftHand.isTracked;
             bool rightHandTracked = subsystem.rightHand.isTracked;
 
-            m_LeftHandGameObjects.UpdateJoints(
-                m_Origin,
-                subsystem.leftHand,
-                m_LeftController,
-                leftHandTracked);
+            m_LeftHandGameObjects.UpdateJoints(m_Origin, subsystem.leftHand,  m_LeftWristLoc, leftHandTracked);
 
             // if ((updateSuccessFlags & XRHandSubsystem.UpdateSuccessFlags.LeftHandRootPose) != 0)
             //     m_LeftHandGameObjects.UpdateRootPose(subsystem.leftHand);
 
-            m_RightHandGameObjects.UpdateJoints(
-                m_Origin,
-                subsystem.rightHand,
-                m_RightController,
-                rightHandTracked);
+            m_RightHandGameObjects.UpdateJoints(m_Origin, subsystem.rightHand,  m_RightWristLoc, rightHandTracked);
             
             // if ((updateSuccessFlags & XRHandSubsystem.UpdateSuccessFlags.RightHandRootPose) != 0)
             //     m_RightHandGameObjects.UpdateRootPose(subsystem.rightHand);
@@ -117,31 +103,27 @@ namespace UnityEngine.XR.Hands
             GameObject[] m_DrawJoints = new GameObject[XRHandJointID.EndMarker.ToIndex()];
             
             LineRenderer[] m_Lines = new LineRenderer[XRHandJointID.EndMarker.ToIndex()];
+
+            GameObject[] spheres = new GameObject[XRHandJointID.EndMarker.ToIndex()];
             bool m_IsTracked;
 
             static Vector3[] s_LinePointsReuse = new Vector3[2];
             const float k_LineWidth = 0.005f;
 
-            public HandGameObjects(
-                Handedness handedness,
-                Transform parent,
-                GameObject wristLoc)
+            public HandGameObjects(Handedness handedness, Transform parent, GameObject wristLoc)
             {
-                void AssignJoint(
-                    XRHandJointID jointId,
-                    Transform jointXform,
-                    Transform drawJointsParent)
+                void AssignJoint(XRHandJointID jointId, Transform jointXform, Transform drawJointsParent)
                 {
                     int jointIndex = jointId.ToIndex();
                     m_JointXforms[jointIndex] = jointXform;
 
-                   
+                    GameObject s = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    s.transform.localScale = new Vector3(0.01f, 0.01f, 0.015f);
+
+                    s.transform.parent = wristLoc.transform;
+                    spheres[jointIndex] = s;
                 }
-
                 
-
-                
-               
 
                 Transform wristRootXform = wristLoc.transform;
                 
@@ -163,9 +145,7 @@ namespace UnityEngine.XR.Hands
                     {
                         var child = wristRootXform.GetChild(childIndex);
 
-                        for (int fingerIndex = (int)XRHandFingerID.Thumb;
-                             fingerIndex <= (int)XRHandFingerID.Little;
-                             ++fingerIndex)
+                        for (int fingerIndex = (int)XRHandFingerID.Thumb; fingerIndex <= (int)XRHandFingerID.Little; ++fingerIndex)
                         {
                             var fingerId = (XRHandFingerID)fingerIndex;
 
@@ -177,9 +157,7 @@ namespace UnityEngine.XR.Hands
                             var lastChild = child;
 
                             int jointIndexBack = fingerId.GetBackJointID().ToIndex();
-                            for (int jointIndex = jointIdFront.ToIndex() + 1;
-                                 jointIndex <= jointIndexBack;
-                                 ++jointIndex)
+                            for (int jointIndex = jointIdFront.ToIndex() + 1; jointIndex <= jointIndexBack; ++jointIndex)
                             {
                                 for (int nextChildIndex = 0; nextChildIndex < lastChild.childCount; ++nextChildIndex)
                                 {
@@ -201,12 +179,9 @@ namespace UnityEngine.XR.Hands
                     }
                 }
 
-                for (int fingerIndex = (int)XRHandFingerID.Thumb;
-                     fingerIndex <= (int)XRHandFingerID.Little;
-                     ++fingerIndex)
+                for (int fingerIndex = (int)XRHandFingerID.Thumb; fingerIndex <= (int)XRHandFingerID.Little; ++fingerIndex)
                 {
                     var fingerId = (XRHandFingerID)fingerIndex;
-
                     var jointId = fingerId.GetFrontJointID();
                     if (m_JointXforms[jointId.ToIndex()] == null)
                         Debug.LogWarning("Hand transform hierarchy not set correctly - couldn't find " + jointId + " joint!");
@@ -226,7 +201,7 @@ namespace UnityEngine.XR.Hands
             public void UpdateJoints(
                 XROrigin xrOrigin,
                 XRHand hand,
-                GameObject wristLocation,
+                GameObject wristLoc,
                 bool areJointsTracked)
             {
                 
@@ -236,35 +211,33 @@ namespace UnityEngine.XR.Hands
 
                 var originTransform = xrOrigin.Origin.transform;
                 var originPose = new Pose(originTransform.position, originTransform.rotation);
-                
-                
-
-
 
                 var wristPose = Pose.identity;
-                // var wrist = m_JointXforms[hand.GetJoint(XRHandJointID.Wrist).id.ToIndex()];
-                // wrist.rotation = wristLocation.transform.rotation;
-                
-                                
-
-                UpdateJoint(originPose, hand.GetJoint(XRHandJointID.Wrist), ref wristPose, hand);
+                //UpdateJoint(originPose, hand.GetJoint(XRHandJointID.Wrist), ref wristPose, hand, wristLoc);
                 //UpdateJoint(originPose, hand.GetJoint(XRHandJointID.Palm), ref wristPose, hand, false);
                 
-               
-                for (int fingerIndex = (int)XRHandFingerID.Thumb;
-                    fingerIndex <= (int)XRHandFingerID.Little;
-                    ++fingerIndex)
+                var wristJoint = hand.GetJoint(XRHandJointID.Wrist);
+                // wristJoint.TryGetPose(out wristPose);
+                // wristLoc.transform.position = wristPose.position;
+
+                // var palmJoint = m_JointXforms[hand.GetJoint(XRHandJointID.Palm).id.ToIndex()];
+                // print(palmJoint.name);
+                // wristJoint.TryGetPose(out Pose wristPose);
+
+                // m_JointXforms[wristJoint.id.ToIndex()].localPosition = wristPose.position;
+                
+                for (int fingerIndex = (int)XRHandFingerID.Thumb; fingerIndex <= (int)XRHandFingerID.Little; ++fingerIndex)
                 {
                     var parentPose = wristPose;
                     var fingerId = (XRHandFingerID)fingerIndex;
+                    
 
                     int jointIndexBack = fingerId.GetBackJointID().ToIndex();
-                    for (int jointIndex = fingerId.GetFrontJointID().ToIndex();
-                        jointIndex <= jointIndexBack;
-                        ++jointIndex)
+                    Transform parentSphere = spheres[jointIndexBack].transform;
+                    for (int jointIndex = fingerId.GetFrontJointID().ToIndex(); jointIndex <= jointIndexBack; ++jointIndex)
                     {
                         if (m_JointXforms[jointIndex] != null)
-                            UpdateJoint(originPose, hand.GetJoint(XRHandJointIDUtility.FromIndex(jointIndex)), ref parentPose, hand);
+                            UpdateJoint(originPose, hand.GetJoint(XRHandJointIDUtility.FromIndex(jointIndex)), ref parentPose, ref parentSphere, hand, wristLoc, (jointIndex!=jointIndexBack));
                     }
                 }
             }
@@ -273,7 +246,10 @@ namespace UnityEngine.XR.Hands
                 Pose originPose,
                 XRHandJoint joint,
                 ref Pose parentPose,
+                ref Transform parentSphere,
                 XRHand myHand,
+                GameObject wristLoc,
+                bool hideSphere = true,
                 bool cacheParentPose = true
                 )
             {
@@ -294,13 +270,38 @@ namespace UnityEngine.XR.Hands
                 var inverseParentRotation = Quaternion.Inverse(parentPose.rotation);
                 //xform.localPosition = inverseParentRotation * (pose.position - parentPose.position);
                 jointRotation = inverseParentRotation * pose.rotation;
-                jointRotation.Set(offset * jointRotation.y, jointRotation.z, offset * jointRotation.x, jointRotation.w);
-                xform.localRotation = jointRotation;
+                //jointRotation.Set(offset * jointRotation.y, jointRotation.z, offset * jointRotation.x, jointRotation.w);
+                //xform.localRotation = jointRotation;
+
+                var wristJoint = myHand.GetJoint(XRHandJointID.Wrist);
+                wristJoint.TryGetPose(out Pose wristPose);
+                inverseParentRotation = Quaternion.Inverse(wristPose.rotation);
+                spheres[jointIndex].transform.localPosition = Quaternion.Inverse(wristLoc.transform.rotation) * (pose.position - wristPose.position);
+                //spheres[jointIndex].transform.localRotation = inverseParentRotation * pose.rotation;
+
+
+                xform.position = spheres[jointIndex].transform.position;
+                // Quaternion s_rotation = spheres[jointIndex].transform.rotation;
+                // jointRotation.Set(s_rotation.x, -s_rotation.z, s_rotation.y, s_rotation.w);
+                // xform.rotation = jointRotation;
+                xform.up = spheres[jointIndex].transform.forward;
+
+                if (hideSphere)
+                    spheres[jointIndex].GetComponent<Renderer>().enabled = false;
+                else
+                {
+                    spheres[jointIndex].GetComponent<Renderer>().enabled = true;
+                    spheres[jointIndex].transform.forward = parentSphere.forward;
+                }
                 
                 
                 if (cacheParentPose)
+                {
                     parentPose = pose;
 
+                    parentSphere.LookAt(spheres[jointIndex].transform.position);
+                    parentSphere = spheres[jointIndex].transform;
+                }
 
             }
 
