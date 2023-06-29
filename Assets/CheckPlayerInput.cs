@@ -6,13 +6,27 @@ public class CheckPlayerInput : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject deviceSim;
+    public GameObject deviceSimUi;
+    public GameObject[] players;
+    
     void Start()
     {
+        players = GameObject.FindGameObjectsWithTag("NetworkPlayer");
 
 
-        if (SystemInfo.operatingSystemFamily.ToString() == "Windows"){
-            Instantiate(deviceSim);
+        if(players.Length == 0 ){
+            Instantiate(deviceSim, gameObject.transform, false );
+            Instantiate(deviceSimUi, gameObject.transform, false);
+            gameObject.tag = "NetworkPlayer";
+            Debug.Log("Instantiating");
+        }else{
+            Debug.Log("Found another player");
+            
         }
+            
+    
+
+
         
     }
 
