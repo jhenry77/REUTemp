@@ -17,9 +17,9 @@ public class LocalVRIK : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = head.ikTarget.position + headBodyPositionOffset;
-        float yaw = head.vrTarget.eulerAngles.y;
-        transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z),turnSmoothness);
+        //transform.position = head.ikTarget.position + headBodyPositionOffset;
+        //float yaw = head.vrTarget.eulerAngles.y;
+        //transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z),turnSmoothness);
         
 
         head.Map();

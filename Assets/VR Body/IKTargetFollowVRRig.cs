@@ -5,7 +5,6 @@ using Mirror;
 [System.Serializable]
 public class VRMap
 {
-    public Transform headSavedPosition;
     public Transform vrTarget;
     public Transform ikTarget;
     public Vector3 trackingPositionOffset;
@@ -13,14 +12,11 @@ public class VRMap
     public void Map()
     {
         
-        ikTarget.position = vrTarget.TransformPoint(trackingPositionOffset);
+        ikTarget.position = vrTarget.position;
         ikTarget.rotation = vrTarget.rotation * Quaternion.Euler(trackingRotationOffset);
     }
 
-    public void storeheadLocation(){
-        headSavedPosition =ikTarget;
-
-    }
+    
 }
 
 public class IKTargetFollowVRRig : NetworkBehaviour
@@ -34,22 +30,17 @@ public class IKTargetFollowVRRig : NetworkBehaviour
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
 
-    public bool fixTeleport = false;
 
     
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         if(!isLocalPlayer){return;}
-        if(fixTeleport){
-            head.storeheadLocation();
-
-        }
         
-        transform.position = head.ikTarget.position + headBodyPositionOffset;
-        float yaw = head.vrTarget.eulerAngles.y;
-        transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z),turnSmoothness);
+        // transform.position = head.ikTarget.position + headBodyPositionOffset;
+        // float yaw = head.vrTarget.eulerAngles.y;
+        // transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z),turnSmoothness);
         
 
         head.Map();
