@@ -178,5 +178,19 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
                 m_TransformTweenableVariable.target = m_InitialPosition;
             }
         }
+        public void setPokePoint(){
+             if (m_PokeFollowTransform != null)
+            {
+                m_InitialPosition = m_PokeFollowTransform.localPosition;
+                m_BindingsGroup.AddBinding(m_TransformTweenableVariable.Subscribe(OnTransformTweenableVariableUpdated));
+                m_BindingsGroup.AddBinding(m_PokeDataProvider.pokeStateData.SubscribeAndUpdate(OnPokeStateDataUpdated));
+            }
+            else
+            {
+                enabled = false;
+                Debug.LogWarning($"Missing Poke Follow Transform assignment on {this}. Disabling component.", this);
+            }
+
+        }
     }
 }

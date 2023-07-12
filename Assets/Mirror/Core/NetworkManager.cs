@@ -368,6 +368,7 @@ namespace Mirror
 
             mode = NetworkManagerMode.ClientOnly;
 
+            Debug.Log("Seting up Client");
             SetupClient();
 
             // In case this is a headless client...
@@ -381,9 +382,9 @@ namespace Mirror
                 return;
             }
             // Debug.Log($"NetworkManager StartClient address:{networkAddress}");
-
+            Debug.Log("About to do NetworkClient.Connect");
             NetworkClient.Connect(networkAddress);
-
+            Debug.Log("About to call on start client");
             OnStartClient();
         }
 

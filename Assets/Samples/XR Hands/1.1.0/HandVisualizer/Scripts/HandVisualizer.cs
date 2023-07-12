@@ -204,6 +204,7 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
 
         void OnUpdatedHands(XRHandSubsystem subsystem, XRHandSubsystem.UpdateSuccessFlags updateSuccessFlags, XRHandSubsystem.UpdateType updateType)
         {
+            Debug.Log("local on updated hands");
             // We have no game logic depending on the Transforms, so early out here
             // (add game logic before this return here, directly querying from
             // subsystem.leftHand and subsystem.rightHand using GetJoint on each hand)
