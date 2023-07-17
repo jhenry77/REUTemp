@@ -12,6 +12,11 @@ public class Experiment_controller : MonoBehaviour
     public GameObject pidGO;
     public ParticipantData thisParticipant;
 
+    public int player1PID;
+    public int player2PID;
+
+    public SceneController mySceneController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,26 +30,4 @@ public class Experiment_controller : MonoBehaviour
         
     }
 
-    public void checkPID(){
-        int pid;
-        string pidText = pidGO.GetComponent<TMP_InputField>().text;
-         if (int.TryParse(pidText, out pid)) {
-            thisParticipant.PID = pid;
-            Debug.Log("our particpants PID is : " + pid);
-                 
-            SceneManager.LoadScene(1);
-         }else{
-            pidGO.GetComponent<TMP_InputField>().Select();
-            pidGO.GetComponent<TMP_InputField>().text = "";
-         }
-    }
-
-    public void loadMultiplayerScene(){
-        var activeScene = SceneManager.GetActiveScene();
-        
-        GameObject myCurrPlayer;
-        myCurrPlayer = GameObject.FindGameObjectWithTag("Player");
-        //myCurrPlayer.SetActive(false);
-        SceneManager.LoadScene(2);
-    }
 }

@@ -127,6 +127,7 @@ namespace UnityEngine.XR.Hands
 
                     s.transform.parent = wristLoc.transform;
                     spheres[jointIndex] = s;
+                    // Debug.Log("Creating sphere with jointIndex" + jointIndex.ToString());
                 }
                 
 
@@ -141,11 +142,11 @@ namespace UnityEngine.XR.Hands
 
                 if (wristRootXform == null)
                 {
-                    Debug.LogWarning("Hand transform hierarchy not set correctly - couldn't find Wrist joint!");
+                    // Debug.LogWarning("Hand transform hierarchy not set correctly - couldn't find Wrist joint!");
                 }
                 else
                 {
-                    //AssignJoint(XRHandJointID.Wrist, wristRootXform, m_DrawJointsParent.transform);
+                    AssignJoint(XRHandJointID.Wrist, wristRootXform, m_DrawJointsParent.transform);
                     for (int childIndex = 0; childIndex < wristRootXform.childCount; ++childIndex)
                     {
                         var child = wristRootXform.GetChild(childIndex);
@@ -189,7 +190,7 @@ namespace UnityEngine.XR.Hands
                     var fingerId = (XRHandFingerID)fingerIndex;
                     var jointId = fingerId.GetFrontJointID();
                     if (m_JointXforms[jointId.ToIndex()] == null)
-                        Debug.LogWarning("Hand transform hierarchy not set correctly - couldn't find " + jointId + " joint!");
+                         Debug.LogWarning("Hand transform hierarchy not set correctly - couldn't find " + jointId + " joint!");
                 }
             }
 
@@ -252,7 +253,7 @@ namespace UnityEngine.XR.Hands
                 XRHand myHand,
                 GameObject wristLoc,
                 GameObject bodyLoc,
-                bool hideSphere = true,
+                bool hideSphere = false,
                 bool cacheParentPose = true
                 )
             {
@@ -276,13 +277,14 @@ namespace UnityEngine.XR.Hands
                 spheres[jointIndex].transform.localPosition =   Quaternion.Inverse(wristLoc.transform.rotation) * (bodyLoc.transform.rotation * pose.position -  bodyLoc.transform.rotation * wristPose.position);
                 //spheres[jointIndex].transform.localRotation = inverseParentRotation * pose.rotation;
 
-
+                // Debug.Log("My xforms position: " +xform.position.ToString());
                 xform.position = spheres[jointIndex].transform.position;
                 // Quaternion s_rotation = spheres[jointIndex].transform.rotation;
                 // jointRotation.Set(s_rotation.x, -s_rotation.z, s_rotation.y, s_rotation.w);
                 // xform.rotation = jointRotation;
+                 
                 xform.up = spheres[jointIndex].transform.forward;
-
+                // Debug.Log("My xforms rotation: " +xform.rotation.ToString());
                 if (hideSphere)
                     spheres[jointIndex].GetComponent<Renderer>().enabled = false;
                 else
@@ -295,7 +297,7 @@ namespace UnityEngine.XR.Hands
                 if (cacheParentPose)
                 {
                     parentPose = pose;
-
+                    // Debug.Log("making parentsphere look at");
                     parentSphere.LookAt(spheres[jointIndex].transform.position);
                     parentSphere = spheres[jointIndex].transform;
                 }

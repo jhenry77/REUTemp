@@ -9,6 +9,13 @@ public class CheckPlayerInput : NetworkBehaviour
     public GameObject deviceSimUi;
     public GameObject myRig;
     public GameObject[] players;
+    private GameObject[] bodyParts;
+    [SyncVar]
+    public int PID;
+
+    public bool canSee = false;
+
+    // public SceneController sceneController;
     
 
 
@@ -30,26 +37,58 @@ public class CheckPlayerInput : NetworkBehaviour
             gameObject.tag = "NetworkPlayer";
             Debug.Log("Instantiating");
             players = GameObject.FindGameObjectsWithTag("NetworkPlayer");
+            // bodyParts = GameObject.FindGameObjectsWithTag("BodyParts");
+            // foreach(var x in bodyParts){x.SetActive(false);}
             if(players.Length == 1){
                 gameObject.transform.Rotate(new Vector3(0,180,0));
                 Debug.Log("Rotated the player");
             }else if(players.Length == 2){
                 //gameObject.transform.Rotate(new Vector3(0,-180,0));
             }
-
-    
-        
+      
             
+    }
+
+
+    [ClientRpc]
+    public void setClientBodyOn(){
+        if(!isLocalPlayer){
+            return;
+        }
+        foreach(var x in bodyParts){x.SetActive(true);}
     }
 
 
 
     // Update is called once per frame
+    [Client]
     void Update()
     {
-        
+
         
     }
+   
 
+    [Client]
+    public void movePlayer(Transform movePosition){
+        if(!isLocalPlayer){return;}
+        transform.position = movePosition.position;
+
+    }
+
+    // [Client]
+    // public void setScenePlayer() {
+    //     if (!isLocalPlayer) {
+    //         return;
+    //     }
+
+    //     // sceneController = GameObject.Find("Scene Controller").GetComponent<SceneController>();
+    //     if (PID == 1) {
+    //         setButtonPlayer
+    //     } else if (PID == 2) {
+    //         sceneController.activedCalibartionButtonP2();
+    //     }
+
+    // }
     
 }
