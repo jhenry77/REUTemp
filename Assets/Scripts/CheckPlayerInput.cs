@@ -11,8 +11,8 @@ public class CheckPlayerInput : NetworkBehaviour
     public GameObject[] players;
     public GameObject[] wristForScale;
  
-    public GameObject serverUpdateJointsLeftHand;
-    public GameObject serverUpdateJointsRightHand;
+    public GameObject leftHandSphere;
+    public GameObject rightHandSphere;
     [SyncVar]
     public int PID;
 
@@ -33,8 +33,8 @@ public class CheckPlayerInput : NetworkBehaviour
             Debug.Log("This was a local player");
             return;
         }
-            serverUpdateJointsLeftHand.GetComponent<serverUpdateJoints>().enabled = false;
-            serverUpdateJointsRightHand.GetComponent<serverUpdateJoints>().enabled = false;
+            leftHandSphere.GetComponent<serverUpdateJoints>().enabled = false;
+            rightHandSphere.GetComponent<serverUpdateJoints>().enabled = false;
             
             myRig.SetActive(true);
             //Instantiate(deviceSim, gameObject.transform, false );

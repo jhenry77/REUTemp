@@ -23,7 +23,9 @@ public class SceneController : NetworkBehaviour
 
     public GameObject player1;
     public GameObject player2;
-    public bool timeToSetScale = false;
+    public bool InstantiatedController = false;
+    public int clientNumwaiting = 0;
+
     
 
     // Start is called before the first frame update
@@ -36,9 +38,8 @@ public class SceneController : NetworkBehaviour
    
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Debug.Log("doing stuff");
         if(numWaiting == 1){
             Debug.Log("creating controller");
             GameObject controller = Instantiate(SpawnPrefab, SpawnLocation.position, SpawnLocation.rotation);
@@ -48,11 +49,12 @@ public class SceneController : NetworkBehaviour
             
             findTheController();
         }
-
-        if(timeToSetScale){
-            myNetworkManager.setPlayerWristScales(5.25f);
-            timeToSetScale = false;
+        if(clientNumwaiting == 1){
+            findTheController();
+            clientNumwaiting++;
         }
+
+       
 
         
         
@@ -74,6 +76,13 @@ public class SceneController : NetworkBehaviour
     {
         base.OnStartServer();
        
+
+    }
+
+    [Server]
+    public int generateRandomNum(int low, int high){
+        int myRand = Random.Range(low,high);
+        return myRand;
 
     }
 
@@ -151,7 +160,7 @@ public class SceneController : NetworkBehaviour
             myNetworkManager.movePlayer1();
             ServersetPlayer1SecneOff();
             UpdateServerNumWaiting();
-            numWaiting++;
+            clientNumwaiting++;
         }
 
          [Client]
@@ -164,7 +173,7 @@ public class SceneController : NetworkBehaviour
             myNetworkManager.movePlayer2();
             ServersetPlayer2SecneOff();
             UpdateServerNumWaiting();
-            numWaiting++;
+            clientNumwaiting++;
             
         }
         [Command(requiresAuthority = false)]

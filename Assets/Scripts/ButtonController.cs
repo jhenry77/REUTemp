@@ -38,17 +38,17 @@ public class ButtonController : NetworkBehaviour
     public List<NumbersClass> myNumberQuestions = new List<NumbersClass>();
     public List<MediumQuestions> myMediumQuestions = new List<MediumQuestions>();
     public List<HardQuestions> myHardQuestions = new List<HardQuestions>();
-    [SyncVar]
+    [SyncVar(hook = "RandQuestionChanged")]
     public int randQuestion;
-    [SyncVar]
-    public int randOrder;
+    [SyncVar(hook = "randOrderChanged")]
+    public int randOrder = 0;
 
 
     public enum questionPhase{
         Easy,Medium,Hard,Questionaire
     }
 
-    public questionPhase currentQuestionPhase;
+    public questionPhase currentQuestionPhase = questionPhase.Easy;
 
     public int currentPhase = 0;
     public bool questionaireUp = false;
@@ -63,7 +63,32 @@ public class ButtonController : NetworkBehaviour
     public int numWaitingInQuestionaire = 0;
     public bool hideP1Confidence = false;
     public bool hideP2Confidence = false;
-    
+
+
+
+    public void RandQuestionChanged(int oldVal, int newVal){
+        randQuestion = newVal;
+        Debug.Log("Hook called randQuesiton is " + randQuestion);
+    }
+    public void randOrderChanged(int oldVal, int newVal){
+        randOrder = newVal;
+        Debug.Log("Hook called randOrder is:  " + randOrder);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CMDgetRandomQuestion(int low, int high){
+        Debug.Log("setting a new random number!");
+        randQuestion = Random.Range(low,high);
+        Debug.Log("rand Quesiton was: " + randQuestion);
+
+    }
+     [Command(requiresAuthority = false)]
+    public void CMDgetRandomOrder(int low, int high){
+        Debug.Log("setting a new random number!");
+        randOrder = Random.Range(low,high);
+        Debug.Log("rand Order was: " + randOrder);
+
+    }
 
     
     [Client]
@@ -79,6 +104,10 @@ public class ButtonController : NetworkBehaviour
         }
     }
     void Awake(){
+    }
+    [Command(requiresAuthority = false)]
+    public void incremenetServerCurrentPhase(){
+        currentPhase++;
     }
 
     
@@ -159,17 +188,25 @@ public class ButtonController : NetworkBehaviour
         min_height = Questionaire.transform.position.y;
         
     }
-
+    [Client]
     public void setInitialNumbers(){
         Debug.Log("setting the button name");
-        changeButtonName(questionPhase.Easy);
+        StartCoroutine(getRandomthenchangeButtonName());
+    }
+    public IEnumerator getRandomthenchangeButtonName(){
+        Debug.Log("calling get random;");
+        CMDgetRandomQuestion(0,myNumberQuestions.Count);
+        CMDgetRandomOrder(0,6);
+        yield return new WaitForSeconds(2);
+        Debug.Log("calling chagne button name");
+        changeButtonName(currentQuestionPhase);
     }
 
     [Client]
     public void changeButtonName(questionPhase currentQuestionPhase){
         if(currentQuestionPhase == questionPhase.Easy){
             Debug.Log("setting a random easy question and current phase is " +currentPhase );
-            getTwoRandom(currentQuestionPhase);
+            //CMDgetRandom(0,myNumberQuestions.Count);
             Debug.Log("Random num is  " + randQuestion);
             
             Debug.Log("randQuestion order is " + randOrder);
@@ -266,6 +303,7 @@ public class ButtonController : NetworkBehaviour
             changeCharadeText(myNumberQuestions[randQuestion].correctAnswer);
             myNumberQuestions.RemoveAt(randQuestion);
             currentPhase++;
+            incremenetServerCurrentPhase();
 
 
 
@@ -284,76 +322,94 @@ public class ButtonController : NetworkBehaviour
                     ButtonTestScript thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(0,myMediumQuestions[randQuestion].correctAnswer, true);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(1,myMediumQuestions[randQuestion].incorrectAnswer1, false);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(2,myMediumQuestions[randQuestion].incorrectAnswer2, false);
                     break;
                 case 1:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(0,myMediumQuestions[randQuestion].correctAnswer, true);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(1,myMediumQuestions[randQuestion].incorrectAnswer2, false);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(2,myMediumQuestions[randQuestion].incorrectAnswer1, false);
                     
                     break;
                 case 2:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
-                    thisButtonScript.setIncorrect();
+                    changeButtonNameServer(0,myMediumQuestions[randQuestion].incorrectAnswer1, false);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(1,myMediumQuestions[randQuestion].correctAnswer, true);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
-                    thisButtonScript.setIncorrect();
+                    changeButtonNameServer(2,myMediumQuestions[randQuestion].incorrectAnswer2, false);
                     break;
                 case 3:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(0,myMediumQuestions[randQuestion].incorrectAnswer1, false);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(1,myMediumQuestions[randQuestion].incorrectAnswer2, false);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(2,myMediumQuestions[randQuestion].correctAnswer, true);
+
                     break;
                 case 4:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(0,myMediumQuestions[randQuestion].incorrectAnswer2, false);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
+                    changeButtonNameServer(1,myMediumQuestions[randQuestion].correctAnswer, true);
                     thisButtonScript.setCorrect();
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(2,myMediumQuestions[randQuestion].incorrectAnswer1, false);
                     break;
                 case 5:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(0,myMediumQuestions[randQuestion].incorrectAnswer2, false);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(1,myMediumQuestions[randQuestion].incorrectAnswer1, false);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(2,myMediumQuestions[randQuestion].correctAnswer, true);
                     break;
 
             }
             changeCharadeText(myMediumQuestions[randQuestion].correctAnswer);
             myMediumQuestions.RemoveAt(randQuestion);
             currentPhase++;
+            incremenetServerCurrentPhase();
 
 
 
@@ -369,74 +425,94 @@ public class ButtonController : NetworkBehaviour
                     ButtonTestScript thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(0,myHardQuestions[randQuestion].correctAnswer, true);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(1,myHardQuestions[randQuestion].incorrectAnswer1, false);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(2,myHardQuestions[randQuestion].incorrectAnswer2, false);
                     break;
                 case 1:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(0,myHardQuestions[randQuestion].correctAnswer, true);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(1,myHardQuestions[randQuestion].incorrectAnswer2, false);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(2,myHardQuestions[randQuestion].incorrectAnswer1, false);
                     
                     break;
                 case 2:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(0,myHardQuestions[randQuestion].incorrectAnswer1, false);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(1,myHardQuestions[randQuestion].correctAnswer, true);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(2,myHardQuestions[randQuestion].incorrectAnswer2, false);
                     break;
                 case 3:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(0,myHardQuestions[randQuestion].incorrectAnswer1, false);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(1,myHardQuestions[randQuestion].incorrectAnswer2, false);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(2,myHardQuestions[randQuestion].correctAnswer, true);
+
                     break;
                 case 4:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(0,myHardQuestions[randQuestion].incorrectAnswer2, false);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
+                    changeButtonNameServer(1,myHardQuestions[randQuestion].correctAnswer, true);
                     thisButtonScript.setCorrect();
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(2,myHardQuestions[randQuestion].incorrectAnswer1, false);
                     break;
                 case 5:
                     thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(0,myHardQuestions[randQuestion].incorrectAnswer2, false);
                     thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
                     thisButtonScript.setIncorrect();
+                    changeButtonNameServer(1,myHardQuestions[randQuestion].incorrectAnswer1, false);
                     thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
                     thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
                     thisButtonScript.setCorrect();
+                    changeButtonNameServer(2,myHardQuestions[randQuestion].correctAnswer, true);
                     break;
 
             }
             changeCharadeText(myHardQuestions[randQuestion].correctAnswer);
             myHardQuestions.RemoveAt(randQuestion);
             currentPhase++;
+            incremenetServerCurrentPhase();
 
 
 
@@ -448,6 +524,7 @@ public class ButtonController : NetworkBehaviour
 
     [Command(requiresAuthority = false)]
     public void changeButtonNameServer(int buttonNum, string buttonName, bool correct){
+        Debug.Log("chaning the server's button name");
         ButtonTestScript myTestScript = myButtons[buttonNum].GetComponent<ButtonTestScript>();
         myTestScript.setTextName(buttonName);
         if(correct){

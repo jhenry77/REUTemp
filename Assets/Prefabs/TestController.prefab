@@ -2163,9 +2163,9 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChange: 1
+  onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!4 &5534548359034882607 stripped
@@ -2385,9 +2385,9 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChange: 1
+  onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!4 &5534548359970492972 stripped
@@ -2607,9 +2607,9 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChange: 1
+  onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!4 &5534548357887207040 stripped

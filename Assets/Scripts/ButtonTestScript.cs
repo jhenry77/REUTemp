@@ -36,6 +36,7 @@ public class ButtonTestScript : NetworkBehaviour
     public int currPhase = 0;
     public int confidence;
     public Vector3 maxHeight;
+    public bool timeForNewRandom = false;
 
 
     // Start is called before the first frame update
@@ -88,6 +89,10 @@ public class ButtonTestScript : NetworkBehaviour
             hideConfidence();
             animateConfidenceServerdown();
 
+        }
+        if(timeForNewRandom){
+            StartCoroutine(myController.getRandomthenchangeButtonName());
+            timeForNewRandom = false;
         }
 
         if(myController.hideP1Confidence && thisButtonType == buttonInfoType.Confidence){
@@ -151,7 +156,6 @@ public class ButtonTestScript : NetworkBehaviour
             myController.hideAnimation = true;
         }
     }
-
     public void animateDown(){
         if(gameObject.transform.position.y > min_height){
             Vector3 myVector = gameObject.transform.position;
@@ -201,10 +205,11 @@ public class ButtonTestScript : NetworkBehaviour
             
 
             if(myController.quesitonairePhase == false){
+            Debug.Log("callingChangeButtonName");
             myController.changePhase(myController.currentPhase);
-            myController.changeButtonName(myController.currentQuestionPhase);
             myController.hideConfidenceButtons = false;
             myController.showAnimation = true;
+            timeForNewRandom = true;
             }else{
                 myController.hideConfidenceButtons = false;
                 myController.showConfidenceButtons = true;
@@ -214,6 +219,7 @@ public class ButtonTestScript : NetworkBehaviour
         }
 
     }
+
 
 
     public void setCorrect(){
