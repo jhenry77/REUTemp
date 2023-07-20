@@ -9,7 +9,10 @@ public class CheckPlayerInput : NetworkBehaviour
     public GameObject deviceSimUi;
     public GameObject myRig;
     public GameObject[] players;
-    private GameObject[] bodyParts;
+    public GameObject[] wristForScale;
+ 
+    public GameObject serverUpdateJointsLeftHand;
+    public GameObject serverUpdateJointsRightHand;
     [SyncVar]
     public int PID;
 
@@ -30,6 +33,8 @@ public class CheckPlayerInput : NetworkBehaviour
             Debug.Log("This was a local player");
             return;
         }
+            serverUpdateJointsLeftHand.GetComponent<serverUpdateJoints>().enabled = false;
+            serverUpdateJointsRightHand.GetComponent<serverUpdateJoints>().enabled = false;
             
             myRig.SetActive(true);
             //Instantiate(deviceSim, gameObject.transform, false );
@@ -50,29 +55,27 @@ public class CheckPlayerInput : NetworkBehaviour
     }
 
 
-    [ClientRpc]
-    public void setClientBodyOn(){
-        if(!isLocalPlayer){
-            return;
-        }
-        foreach(var x in bodyParts){x.SetActive(true);}
-    }
 
 
 
-    // Update is called once per frame
-    [Client]
-    void Update()
-    {
-
-        
-    }
+    
+   
    
 
     [Client]
     public void movePlayer(Transform movePosition){
         if(!isLocalPlayer){return;}
         transform.position = movePosition.position;
+
+    }
+
+    [Client]
+    public void setScale(float percentage){
+        foreach(var x in wristForScale){
+            Debug.Log("changing either left or right scale");
+            if(!isLocalPlayer){return;}
+            x.transform.localScale += new Vector3(percentage,percentage,percentage);
+        }
 
     }
 

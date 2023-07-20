@@ -8,6 +8,10 @@ TagManager:
   - Button
   - RayInteractor
   - BodyParts
+  - ConfidenceButtons
+  - P2QuestionaireButtons
+  - SceneController
+  - ButtonController
   layers:
   - Default
   - TransparentFX

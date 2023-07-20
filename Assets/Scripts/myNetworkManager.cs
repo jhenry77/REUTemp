@@ -90,6 +90,7 @@ using Mirror;
    
 
     public void movePlayer1(){
+        Debug.Log("moving the first player");
          GameObject[] players = GameObject.FindGameObjectsWithTag("NetworkPlayer");
         foreach(var x in players){
             int currPlayerPid = x.GetComponent<CheckPlayerInput>().PID;
@@ -111,6 +112,21 @@ using Mirror;
 
             
         }
+    }
+
+    public void setPlayerWristScales(float percentage){
+        Debug.Log("setting player wrist scales");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("NetworkPlayer");
+        foreach(var x in players){
+            int currPlayerPid = x.GetComponent<CheckPlayerInput>().PID;
+            if(currPlayerPid % 2 == 0){
+                Debug.Log("setting 'X's scale to the percentage");
+                x.GetComponent<CheckPlayerInput>().setScale(percentage);
+            }
+
+            
+        }
+
     }
 
        

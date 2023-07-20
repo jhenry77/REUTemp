@@ -279,6 +279,8 @@ namespace UnityEngine.XR.Hands
                 wristJoint.TryGetPose(out Pose wristPose);
                 inverseParentRotation = Quaternion.Inverse(wristPose.rotation);
                 spheres[jointIndex].transform.localPosition =   Quaternion.Inverse(wristLoc.transform.rotation) * (bodyLoc.transform.rotation * pose.position -  bodyLoc.transform.rotation * wristPose.position);
+                
+
                 // spheres[jointIndex].transform.localPosition = bodyLoc.transform.rotation * spheres[jointIndex].transform.localPosition;
                 //spheres[jointIndex].transform.localRotation = inverseParentRotation * pose.rotation;
 

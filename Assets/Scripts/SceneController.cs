@@ -15,6 +15,7 @@ public class SceneController : NetworkBehaviour
     public GameObject MoveOnButton;
     public GameObject MoveOnButtonP2;
     public myNetworkManager myNetworkManager = new myNetworkManager();
+    public ButtonController myButtonController;
    
     public GameObject SpawnPrefab;
     public Transform SpawnLocation;
@@ -22,6 +23,8 @@ public class SceneController : NetworkBehaviour
 
     public GameObject player1;
     public GameObject player2;
+    public bool timeToSetScale = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +33,35 @@ public class SceneController : NetworkBehaviour
         
     }
 
+   
+
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("doing stuff");
         if(numWaiting == 1){
             Debug.Log("creating controller");
             GameObject controller = Instantiate(SpawnPrefab, SpawnLocation.position, SpawnLocation.rotation);
             NetworkServer.Spawn(controller);
+            
             numWaiting++;
+            
+            findTheController();
         }
+
+        if(timeToSetScale){
+            myNetworkManager.setPlayerWristScales(5.25f);
+            timeToSetScale = false;
+        }
+
+        
+        
+    }
+    public void findTheController(){
+        Debug.Log("finding the controller");
+        GameObject buttonObject = GameObject.FindGameObjectWithTag("ButtonController");
+        myButtonController = buttonObject.GetComponent<ButtonController>();
+        myButtonController.setInitialNumbers();
         
     }
 
@@ -128,6 +151,7 @@ public class SceneController : NetworkBehaviour
             myNetworkManager.movePlayer1();
             ServersetPlayer1SecneOff();
             UpdateServerNumWaiting();
+            numWaiting++;
         }
 
          [Client]
@@ -140,6 +164,7 @@ public class SceneController : NetworkBehaviour
             myNetworkManager.movePlayer2();
             ServersetPlayer2SecneOff();
             UpdateServerNumWaiting();
+            numWaiting++;
             
         }
         [Command(requiresAuthority = false)]
@@ -158,4 +183,5 @@ public class SceneController : NetworkBehaviour
             numWaiting++;
 
         }
+
 }
