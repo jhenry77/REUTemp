@@ -22,7 +22,7 @@ namespace UnityEngine.XR.Hands
         GameObject bodyLoc;
 
         public List<GameObject> leftHandSphere, rightHandSphere;
-
+        public float scale = 1;
 
 
         XRHandSubsystem m_Subsystem;
@@ -80,7 +80,11 @@ namespace UnityEngine.XR.Hands
 
         
 
-       
+        void LateUpdate()
+        {
+            m_LeftWristLoc.transform.localScale = new Vector3(scale, scale, scale);
+            m_RightWristLoc.transform.localScale = new Vector3(scale, scale, scale);
+        }
 
 
         void OnUpdatedHands(XRHandSubsystem subsystem, XRHandSubsystem.UpdateSuccessFlags updateSuccessFlags, XRHandSubsystem.UpdateType updateType)

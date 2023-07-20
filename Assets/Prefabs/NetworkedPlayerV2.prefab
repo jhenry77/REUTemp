@@ -54,7 +54,7 @@ MonoBehaviour:
   syncScale: 0
   interpolatePosition: 1
   interpolateRotation: 1
-  interpolateScale: 1
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   showGizmos: 1
   showOverlay: 1
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChange: 0
+  onlySyncOnChange: 1
   bufferResetMultiplier: 3
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
@@ -308,11 +308,11 @@ MonoBehaviour:
   target: {fileID: 6708352020881041290}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -320,7 +320,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &484240720299470555
@@ -439,11 +439,11 @@ MonoBehaviour:
   target: {fileID: 2293341314494899493}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -451,7 +451,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &692566146311993117
@@ -667,11 +667,11 @@ MonoBehaviour:
   target: {fileID: 1428750348413165403}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -679,7 +679,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &1128634856322621310
@@ -798,11 +798,11 @@ MonoBehaviour:
   target: {fileID: 3646913987195999420}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -810,7 +810,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &1249628577737700586
@@ -929,11 +929,11 @@ MonoBehaviour:
   target: {fileID: 1483505993017556496}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -941,7 +941,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &1277735110486513879
@@ -1060,11 +1060,11 @@ MonoBehaviour:
   target: {fileID: 9189864964471641297}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -1072,7 +1072,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &1319051658549342090
@@ -1191,11 +1191,11 @@ MonoBehaviour:
   target: {fileID: 6598792727762163299}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &1321352885792666473
@@ -1322,11 +1322,11 @@ MonoBehaviour:
   target: {fileID: 6559103407239875594}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -1334,7 +1334,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &1343434512795960586
@@ -1662,11 +1662,11 @@ MonoBehaviour:
   target: {fileID: 839202249417014071}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -1674,7 +1674,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &1904104931983768838
@@ -1793,11 +1793,11 @@ MonoBehaviour:
   target: {fileID: 3970555564266244412}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -1805,7 +1805,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &2024533840817731526
@@ -1924,11 +1924,11 @@ MonoBehaviour:
   target: {fileID: 7250618615309572227}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -1936,7 +1936,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &2644166674464940074
@@ -2055,11 +2055,11 @@ MonoBehaviour:
   target: {fileID: 9093774069957629247}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -2067,7 +2067,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &2669774710761634142
@@ -2186,11 +2186,11 @@ MonoBehaviour:
   target: {fileID: 4925367433610037062}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -2198,7 +2198,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &2673201930391023620
@@ -2414,11 +2414,11 @@ MonoBehaviour:
   target: {fileID: 5825724590769997765}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -2426,7 +2426,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &3242869484011636386
@@ -2545,11 +2545,11 @@ MonoBehaviour:
   target: {fileID: 2225663672369508249}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -2557,7 +2557,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &3460794762637380432
@@ -2676,11 +2676,11 @@ MonoBehaviour:
   target: {fileID: 710972904766357007}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -2688,7 +2688,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &3536636188643837507
@@ -2807,11 +2807,11 @@ MonoBehaviour:
   target: {fileID: 1782981599620328672}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -2819,7 +2819,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &3712289673150217247
@@ -2938,11 +2938,11 @@ MonoBehaviour:
   target: {fileID: 5541121610074245439}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -2950,7 +2950,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &3834595787266392594
@@ -3069,11 +3069,11 @@ MonoBehaviour:
   target: {fileID: 2550231757826621958}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -3081,7 +3081,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &3910555013087703942
@@ -3200,11 +3200,11 @@ MonoBehaviour:
   target: {fileID: 434452147951735762}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -3212,7 +3212,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &4052313792356609792
@@ -3331,11 +3331,11 @@ MonoBehaviour:
   target: {fileID: 807161443520079020}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -3343,7 +3343,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &4282933445882908358
@@ -3656,11 +3656,11 @@ MonoBehaviour:
   target: {fileID: 7035220797714985045}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -3668,7 +3668,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &5107305202581954840
@@ -3696,7 +3696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5107305202581954840}
   m_LocalRotation: {x: -0.000000096857505, y: 0.00000007450577, z: 0.000000038766284, w: 1}
-  m_LocalPosition: {x: 0.000000022461528, y: 0.0000001936615, z: 0.000000058025545}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3795,6 +3795,7 @@ MonoBehaviour:
   - {fileID: 5425323394261918202}
   - {fileID: 5039533187582410443}
   - {fileID: 6975171142649531602}
+  handViz: {fileID: 1287180589138643739}
   index: 2
 --- !u!1 &5175349955556443442
 GameObject:
@@ -3821,7 +3822,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5175349955556443442}
   m_LocalRotation: {x: -0.000000048428735, y: 0.00000008381896, z: -0.00000021926807, w: 1}
-  m_LocalPosition: {x: -0.0000002514053, y: 0.00000019780575, z: -0.000000053973498}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3920,6 +3921,7 @@ MonoBehaviour:
   - {fileID: 191987549737813152}
   - {fileID: 7531360772645152048}
   - {fileID: 7912053453661195677}
+  handViz: {fileID: 1287180589138643739}
   index: 2
 --- !u!1 &5183985782036245133
 GameObject:
@@ -4037,11 +4039,11 @@ MonoBehaviour:
   target: {fileID: 3640446891944297411}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -4049,7 +4051,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &5372857356857035586
@@ -4168,11 +4170,11 @@ MonoBehaviour:
   target: {fileID: 1319559313523260325}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -4180,7 +4182,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &5528505180075904724
@@ -4299,11 +4301,11 @@ MonoBehaviour:
   target: {fileID: 4728752309199447828}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -4311,7 +4313,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &5721714008099867437
@@ -4430,11 +4432,11 @@ MonoBehaviour:
   target: {fileID: 5143900322841545741}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -4442,7 +4444,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &5773097466471260492
@@ -4561,11 +4563,11 @@ MonoBehaviour:
   target: {fileID: 7865120015401203481}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -4573,7 +4575,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &5847877188462219335
@@ -4692,11 +4694,11 @@ MonoBehaviour:
   target: {fileID: 926981457244965883}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -4704,7 +4706,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &5872357920876390578
@@ -4823,11 +4825,11 @@ MonoBehaviour:
   target: {fileID: 1675964643061559116}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -4835,7 +4837,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &6249766453994335897
@@ -4954,11 +4956,11 @@ MonoBehaviour:
   target: {fileID: 3057074761111451221}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -4966,7 +4968,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &6253754422794018875
@@ -5085,11 +5087,11 @@ MonoBehaviour:
   target: {fileID: 4762452028127204475}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -5097,7 +5099,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &6259025433285357860
@@ -5216,11 +5218,11 @@ MonoBehaviour:
   target: {fileID: 125878036796402748}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -5228,7 +5230,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &6502825866997852476
@@ -5347,11 +5349,11 @@ MonoBehaviour:
   target: {fileID: 808541490586257257}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -5359,7 +5361,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &6722946340367728376
@@ -5478,11 +5480,11 @@ MonoBehaviour:
   target: {fileID: 3164681265871111895}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -5490,7 +5492,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &6748349029993610859
@@ -5609,11 +5611,11 @@ MonoBehaviour:
   target: {fileID: 1782464830346952396}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -5621,7 +5623,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &6949409091774749989
@@ -5740,11 +5742,11 @@ MonoBehaviour:
   target: {fileID: 6738934971356148090}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -5752,7 +5754,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &6950822389688731992
@@ -5871,11 +5873,11 @@ MonoBehaviour:
   target: {fileID: 5555782335759349302}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -5883,7 +5885,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &7375552218182092684
@@ -6002,11 +6004,11 @@ MonoBehaviour:
   target: {fileID: 7501413390368862050}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -6014,7 +6016,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &7394698870360844954
@@ -6133,11 +6135,11 @@ MonoBehaviour:
   target: {fileID: 6078959676753739853}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -6145,7 +6147,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &7412227027070508452
@@ -6209,7 +6211,7 @@ MonoBehaviour:
   showGizmos: 1
   showOverlay: 1
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChange: 0
+  onlySyncOnChange: 1
   bufferResetMultiplier: 3
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
@@ -6391,11 +6393,11 @@ MonoBehaviour:
   target: {fileID: 5220112122187522512}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -6403,7 +6405,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &7452383094711962675
@@ -6653,11 +6655,11 @@ MonoBehaviour:
   target: {fileID: 4094575099227682570}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -6665,7 +6667,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &7840100724890911393
@@ -6784,11 +6786,11 @@ MonoBehaviour:
   target: {fileID: 5181274621489083362}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -6796,7 +6798,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &8316581339076324356
@@ -6915,11 +6917,11 @@ MonoBehaviour:
   target: {fileID: 5039902548901716761}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -6927,7 +6929,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &8702063611490652106
@@ -7046,11 +7048,11 @@ MonoBehaviour:
   target: {fileID: 7789354092313024037}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -7058,7 +7060,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &8953965713108711657
@@ -7177,11 +7179,11 @@ MonoBehaviour:
   target: {fileID: 4176736167652068013}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -7189,7 +7191,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &9082944375313699773
@@ -7405,11 +7407,11 @@ MonoBehaviour:
   target: {fileID: 363901487078368745}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -7417,7 +7419,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1 &9185540523505866395
@@ -7536,11 +7538,11 @@ MonoBehaviour:
   target: {fileID: 6267742407289305463}
   clientAuthority: 0
   syncPosition: 1
-  syncRotation: 1
+  syncRotation: 0
   syncScale: 0
-  interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolatePosition: 0
+  interpolateRotation: 0
+  interpolateScale: 0
   sendIntervalMultiplier: 1
   timelineOffset: 0
   showGizmos: 0
@@ -7548,7 +7550,7 @@ MonoBehaviour:
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   onlySyncOnChange: 0
   bufferResetMultiplier: 3
-  positionSensitivity: 0.01
+  positionSensitivity: 0.0001
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
 --- !u!1001 &2505001301361920543
@@ -8836,6 +8838,7 @@ MonoBehaviour:
   - {fileID: 1063806698094349830}
   - {fileID: 7394698870360844954}
   - {fileID: 4282933445882908358}
+  scale: 2
 --- !u!4 &1287180589592607432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8953795541482618921, guid: fc4deddf6dbfe5c40885dac905be7ae1, type: 3}
