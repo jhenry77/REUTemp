@@ -53,7 +53,7 @@ public class ButtonTestScript : NetworkBehaviour
         initialLocation = gameObject.transform.position;
         initialRotation = gameObject.transform.rotation;
         maxHeight = initialLocation;
-        if(gameObject.tag == "ConfidenceButtons"){
+        if(gameObject.tag == "ConfidenceButtons" || gameObject.tag == "P2QuestionaireButtons"){
             max_height = initialLocation.y + .4f;
             min_height = initialLocation.y;
             maxHeight.y = (float)max_height;
@@ -67,42 +67,42 @@ public class ButtonTestScript : NetworkBehaviour
         LoserText.gameObject.SetActive(false);
         
     }
-    [Client]
+    [Server]
     // Update is called once per frame
     void FixedUpdate()
     {
         if(myController.hideAnimation && thisButtonType == buttonInfoType.Answers){
             animateDown();
-            animateOnServerDown();
         }
         if(myController.showAnimation && thisButtonType == buttonInfoType.Answers){
             animateUp();
-            animateOnServerUp();
         }
 
         if(myController.showConfidenceButtons && thisButtonType == buttonInfoType.Confidence){
             showConfidence();
-            animateConfidenceServerup();
 
         }
         if(myController.hideConfidenceButtons && thisButtonType == buttonInfoType.Confidence){
             hideConfidence();
-            animateConfidenceServerdown();
 
         }
+        
+
+        if(myController.showConfidenceButtonsP2 && thisButtonType == buttonInfoType.P2Confidence){
+            showConfidenceP2();
+        }
         if(timeForNewRandom){
+            Debug.Log("In time for new random");
             StartCoroutine(myController.getRandomthenchangeButtonName());
             timeForNewRandom = false;
         }
 
         if(myController.hideP1Confidence && thisButtonType == buttonInfoType.Confidence){
             hideConfidenceQuestionaireP1();
-            animateConfidenceQuestionaireServerP1();
 
         }
         if(myController.hideP2Confidence && thisButtonType == buttonInfoType.P2Confidence){
             hideConfidenceQuestionaireP2();
-            animateConfidenceQuestionaireServerP2();
 
         }
         
@@ -139,7 +139,7 @@ public class ButtonTestScript : NetworkBehaviour
         hideConfidenceQuestionaireP2();
 
     }
-
+    [Client]
     public void press(){
         
         Debug.Log("calling press");
@@ -147,29 +147,38 @@ public class ButtonTestScript : NetworkBehaviour
             Debug.Log("Got it correct! setting thing to active");
             WinnerText.gameObject.SetActive(true);
             LoserText.gameObject.SetActive(false);
-            myController.hideAnimation = true;
+            // myController.hideAnimation = true;
+            serverSetAnimateDownTrue();
+            
             
         }else if(thisButtonType == buttonInfoType.Answers){
             Debug.Log("Got it incorrect! setting things active");
             LoserText.gameObject.SetActive(true);
             WinnerText.gameObject.SetActive(false);
-            myController.hideAnimation = true;
+            // myController.hideAnimation = true;
+            serverSetAnimateDownTrue();
         }
     }
+
+
+    
     public void animateDown(){
         if(gameObject.transform.position.y > min_height){
             Vector3 myVector = gameObject.transform.position;
             myVector.y = myVector.y - increment; 
             Quaternion myRotation = gameObject.transform.rotation;
             gameObject.transform.SetPositionAndRotation(myVector,myRotation);
+            Debug.Log("animating the orig buttons down");
         }else{
             myController.hideAnimation = false;
-          
+            // serverSetAnimateDownFalse();
+            Debug.Log("setting myController to show the confidence buttons");
             myController.showConfidenceButtons = true;
+            // serverSetAnimateConfidenceUpTrue();
+            // Debug.Log("show confidence buttons is : " + myController.showConfidenceButtons.ToString());
 
         }
     }
-
      public void animateUp(){
         if(gameObject.transform.position.y < max_height){
             Vector3 myVector = gameObject.transform.position;
@@ -179,9 +188,9 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
             gameObject.transform.SetPositionAndRotation(initialLocation,initialRotation);
             myController.showAnimation = false;
+            // serverSetAnimateUpFalse();
         }
     }
-
     public void showConfidence(){
          if(gameObject.transform.position.y < max_height){
             Vector3 myVector = gameObject.transform.position;
@@ -191,10 +200,10 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
             gameObject.transform.SetPositionAndRotation(maxHeight,initialRotation);
             myController.showConfidenceButtons = false;
+            // serverSetAnimateConfidenceUpFalse();
         }
 
     }
-
     public void hideConfidence(){
          if(gameObject.transform.position.y > min_height){
             Vector3 myVector = gameObject.transform.position;
@@ -205,15 +214,51 @@ public class ButtonTestScript : NetworkBehaviour
             
 
             if(myController.quesitonairePhase == false){
-            Debug.Log("callingChangeButtonName");
+            Debug.Log("calling change phase in hide and it is: " +myController.currentPhase);
             myController.changePhase(myController.currentPhase);
             myController.hideConfidenceButtons = false;
-            myController.showAnimation = true;
+            if(myController.quesitonairePhase == false){
             timeForNewRandom = true;
-            }else{
-                myController.hideConfidenceButtons = false;
-                myController.showConfidenceButtons = true;
+            myController.showAnimation = true;
             }
+            //serverSetAnimateConfidenceDownFalse();
+           
+            //serverSetAnimateUpTrue();
+            
+            }else{
+                // myController.hideConfidenceButtons = false;
+                //serverSetAnimateConfidenceDownFalse();
+                // myController.showConfidenceButtons = true;
+                //serverSetAnimateConfidenceUpTrue();
+            }
+            
+
+        }
+
+    }
+    public void showConfidenceP2(){
+         if(gameObject.transform.position.y < max_height){
+            Vector3 myVector = gameObject.transform.position;
+            myVector.y = myVector.y + increment; 
+            Quaternion myRotation = gameObject.transform.rotation;
+            gameObject.transform.SetPositionAndRotation(myVector,myRotation);
+        }else{
+            gameObject.transform.SetPositionAndRotation(maxHeight,initialRotation);
+            myController.showConfidenceButtonsP2 = false;
+            // serverSetAnimateConfidenceUpFalse();
+        }
+
+    }
+    public void hideConfidenceP2(){
+         if(gameObject.transform.position.y > min_height){
+            Vector3 myVector = gameObject.transform.position;
+            myVector.y = myVector.y - increment; 
+            Quaternion myRotation = gameObject.transform.rotation;
+            gameObject.transform.SetPositionAndRotation(myVector,myRotation);
+        }else{
+            myController.hideConfidenceButtonsP2 = false;
+
+         
             
 
         }
@@ -222,6 +267,58 @@ public class ButtonTestScript : NetworkBehaviour
 
 
 
+
+
+    [Command(requiresAuthority = false)]
+    public void setServerPhase(int phase){
+
+    }
+
+    [Command(requiresAuthority = false)]
+    public void serverSetAnimateDownTrue(){
+        myController.hideAnimation = true;
+
+    }
+
+     [Command(requiresAuthority = false)]
+    public void serverSetAnimateDownFalse(){
+        myController.hideAnimation = false;
+        
+    }
+    [Command(requiresAuthority = false)]
+    public void serverSetAnimateUpTrue(){
+        myController.showAnimation = true;
+
+    }
+
+     [Command(requiresAuthority = false)]
+    public void serverSetAnimateUpFalse(){
+        myController.showAnimation = false;
+        
+    }
+
+    [Command(requiresAuthority = false)]
+    public void serverSetAnimateConfidenceDownTrue(){
+        myController.hideConfidenceButtons = true;
+
+    }
+
+     [Command(requiresAuthority = false)]
+    public void serverSetAnimateConfidenceDownFalse(){
+        myController.hideConfidenceButtons = false;
+        
+    }
+    [Command(requiresAuthority = false)]
+    public void serverSetAnimateConfidenceUpTrue(){
+        myController.showConfidenceButtons = true;
+
+    }
+
+     [Command(requiresAuthority = false)]
+    public void serverSetAnimateConfidenceUpFalse(){
+        myController.showConfidenceButtons = false;
+        
+    }
     public void setCorrect(){
         thisButtonInfo = buttonInfo.Correct;
     }
@@ -235,7 +332,7 @@ public class ButtonTestScript : NetworkBehaviour
         myText.text = changed;
     }
 
-
+    [Client]
     public void pressConfidence1(){
         if(myController.quesitonairePhase == true){
             confidence = 1;
@@ -243,10 +340,13 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
         confidence = 1;
         myController.setConfidence(confidence.ToString());
-        myController.hideConfidenceButtons = true;
+        serverSetAnimateConfidenceDownTrue();
+        // myController.hideConfidenceButtons = true;
         }
 
     }
+
+    [Client]
     public void pressConfidence2(){
          if(myController.quesitonairePhase == true){
             confidence = 2;
@@ -254,10 +354,13 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
         confidence = 2;
         myController.setConfidence(confidence.ToString());
-        myController.hideConfidenceButtons = true;
+        // myController.hideConfidenceButtons = true;
+        serverSetAnimateConfidenceDownTrue();
+
         }
 
     }
+    [Client]
     public void pressConfidence3(){
          if(myController.quesitonairePhase == true){
             confidence = 3;
@@ -265,9 +368,12 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
         confidence = 3;
         myController.setConfidence(confidence.ToString());
-        myController.hideConfidenceButtons = true;
+        // myController.hideConfidenceButtons = true;
+        serverSetAnimateConfidenceDownTrue();
+
         }
     }
+    [Client]
     public void pressConfidence4(){
          if(myController.quesitonairePhase == true){
             confidence = 4;
@@ -275,9 +381,12 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
         confidence = 4;
         myController.setConfidence(confidence.ToString());
-        myController.hideConfidenceButtons = true;
+        // myController.hideConfidenceButtons = true;
+        serverSetAnimateConfidenceDownTrue();
+
         }
     }
+    [Client]
     public void pressConfidence5(){
          if(myController.quesitonairePhase == true){
             confidence = 5;
@@ -285,9 +394,12 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
         confidence = 5;
         myController.setConfidence(confidence.ToString());
-        myController.hideConfidenceButtons = true;
+        // myController.hideConfidenceButtons = true;
+        serverSetAnimateConfidenceDownTrue();
+
         }
     }
+    [Client]
     public void pressConfidence6(){
          if(myController.quesitonairePhase == true){
             confidence = 6;
@@ -295,9 +407,12 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
         confidence = 6;
         myController.setConfidence(confidence.ToString());
-        myController.hideConfidenceButtons = true;
+        // myController.hideConfidenceButtons = true;
+        serverSetAnimateConfidenceDownTrue();
+
         }
     }
+    [Client]
     public void pressConfidence7(){
          if(myController.quesitonairePhase == true){
             confidence = 7;
@@ -305,9 +420,12 @@ public class ButtonTestScript : NetworkBehaviour
         }else{
         confidence = 7;
         myController.setConfidence(confidence.ToString());
-        myController.hideConfidenceButtons = true;
+        // myController.hideConfidenceButtons = true;
+        serverSetAnimateConfidenceDownTrue();
+
         }
     }
+    [Client]
     public void pressConfidenceP21(){
         if(myController.quesitonairePhase == true){
             
@@ -319,6 +437,7 @@ public class ButtonTestScript : NetworkBehaviour
         }
 
     }
+    [Client]
     public void pressConfidenceP22(){
          if(myController.quesitonairePhase == true){
             confidence = 2;
@@ -329,6 +448,7 @@ public class ButtonTestScript : NetworkBehaviour
         }
 
     }
+    [Client]
     public void pressConfidenceP23(){
          if(myController.quesitonairePhase == true){
             confidence = 3;
@@ -338,6 +458,7 @@ public class ButtonTestScript : NetworkBehaviour
         myController.hideConfidenceButtons = true;
         }
     }
+    [Client]
     public void pressConfidenceP24(){
          if(myController.quesitonairePhase == true){
             confidence = 4;
@@ -347,6 +468,7 @@ public class ButtonTestScript : NetworkBehaviour
         myController.hideConfidenceButtons = true;
         }
     }
+    [Client]
     public void pressConfidenceP25(){
          if(myController.quesitonairePhase == true){
             confidence = 5;
@@ -356,6 +478,7 @@ public class ButtonTestScript : NetworkBehaviour
         myController.hideConfidenceButtons = true;
         }
     }
+    [Client]
     public void pressConfidenceP26(){
          if(myController.quesitonairePhase == true){
             confidence = 6;
@@ -365,6 +488,7 @@ public class ButtonTestScript : NetworkBehaviour
         myController.hideConfidenceButtons = true;
         }
     }
+    [Client]
     public void pressConfidenceP27(){
          if(myController.quesitonairePhase == true){
             Debug.Log("set p2 confidence 2 and then setting the phase of player2");

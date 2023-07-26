@@ -20,6 +20,8 @@ public class serverUpdateJoints : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+         if (handViz != null && handViz.GetComponent<UnityEngine.XR.Hands.NetworkedHandVIz>().scale != scale)
+            scale = handViz.GetComponent<UnityEngine.XR.Hands.NetworkedHandVIz>().scale;
         updateJoints();
         ScaleHand();
     }

@@ -72,12 +72,6 @@ using Mirror;
         player.tag = "NetworkPlayer";
         NetworkServer.AddPlayerForConnection(conn, player);
         GameObject.FindGameObjectsWithTag("NetworkPlayer");
-        //bodyParts = GameObject.FindGameObjectsWithTag("BodyParts");
-        //foreach(var x in bodyParts){x.SetActive(false);Debug.Log("setting a body part to be invisible");}
-            if(numplayer == 0){
-            //GameObject controller = Instantiate(spawnPrefabs[0], buttonLocaiton.position, buttonLocaiton.rotation);
-            //NetworkServer.Spawn(controller);
-            }
         
 
         
@@ -118,13 +112,9 @@ using Mirror;
         Debug.Log("setting player wrist scales");
         GameObject[] players = GameObject.FindGameObjectsWithTag("NetworkPlayer");
         foreach(var x in players){
-            int currPlayerPid = x.GetComponent<CheckPlayerInput>().PID;
-            if(currPlayerPid % 2 == 0){
-                Debug.Log("setting 'X's scale to the percentage");
-                x.GetComponent<CheckPlayerInput>().setScale(percentage);
+            x.GetComponent<CheckPlayerInput>().setScale(percentage);
             }
-
-            
+        
         }
 
     }
@@ -134,4 +124,4 @@ using Mirror;
  
 
 
-    }
+    

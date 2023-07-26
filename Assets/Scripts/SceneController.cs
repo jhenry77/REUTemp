@@ -24,7 +24,7 @@ public class SceneController : NetworkBehaviour
     public GameObject player1;
     public GameObject player2;
     public bool InstantiatedController = false;
-    public int clientNumwaiting = 0;
+    public bool clientFindController = false;
 
     
 
@@ -40,18 +40,22 @@ public class SceneController : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(numWaiting == 1){
+        if(numWaiting == 3){
             Debug.Log("creating controller");
             GameObject controller = Instantiate(SpawnPrefab, SpawnLocation.position, SpawnLocation.rotation);
             NetworkServer.Spawn(controller);
+            changeClientFindClient();
             
             numWaiting++;
             
             findTheController();
+            myButtonController.setInitialNumbers();
         }
-        if(clientNumwaiting == 1){
+        if(clientFindController){
             findTheController();
-            clientNumwaiting++;
+            clientFindController = false;
+            
+            
         }
 
        
@@ -59,11 +63,17 @@ public class SceneController : NetworkBehaviour
         
         
     }
+
+    [ClientRpc]
+    public void changeClientFindClient(){
+        Debug.Log("changing find the controller to true");
+        clientFindController = true;
+    }
     public void findTheController(){
         Debug.Log("finding the controller");
         GameObject buttonObject = GameObject.FindGameObjectWithTag("ButtonController");
         myButtonController = buttonObject.GetComponent<ButtonController>();
-        myButtonController.setInitialNumbers();
+        //myButtonController.setInitialNumbers();
         
     }
 
@@ -152,6 +162,7 @@ public class SceneController : NetworkBehaviour
 
         [Client]
         public void activedCalibartionButtonP1(){
+            Debug.Log("activated p1 calibration button");
             PlayEnviroment.SetActive(true);
             Player1Enviroment.SetActive(false);
             Debug.Log("p1 activated calibration button");
@@ -160,11 +171,11 @@ public class SceneController : NetworkBehaviour
             myNetworkManager.movePlayer1();
             ServersetPlayer1SecneOff();
             UpdateServerNumWaiting();
-            clientNumwaiting++;
         }
 
          [Client]
         public void activedCalibartionButtonP2(){
+            Debug.Log("activated p2 calibration button");
             PlayEnviroment.SetActive(true);
             Player2Enviroment.SetActive(false);
             CombinedEnviorment.SetActive(true);
@@ -173,7 +184,6 @@ public class SceneController : NetworkBehaviour
             myNetworkManager.movePlayer2();
             ServersetPlayer2SecneOff();
             UpdateServerNumWaiting();
-            clientNumwaiting++;
             
         }
         [Command(requiresAuthority = false)]
@@ -190,6 +200,8 @@ public class SceneController : NetworkBehaviour
          [Command(requiresAuthority = false)]
         public void UpdateServerNumWaiting(){
             numWaiting++;
+            Debug.Log("itterating num waiting and it is: " + numWaiting);
+
 
         }
 

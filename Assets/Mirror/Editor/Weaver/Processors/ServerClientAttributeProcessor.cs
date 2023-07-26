@@ -88,8 +88,8 @@ namespace Mirror.Weaver
             worker.InsertBefore(top, worker.Create(OpCodes.Brtrue, top));
             if (logWarning)
             {
-                worker.InsertBefore(top, worker.Create(OpCodes.Ldstr, $"[Server] function '{md.FullName}' called when server was not active"));
-                worker.InsertBefore(top, worker.Create(OpCodes.Call, weaverTypes.logWarningReference));
+                //worker.InsertBefore(top, worker.Create(OpCodes.Ldstr, $"[Server] function '{md.FullName}' called when server was not active"));
+                //worker.InsertBefore(top, worker.Create(OpCodes.Call, weaverTypes.logWarningReference));
             }
             InjectGuardParameters(md, worker, top);
             InjectGuardReturnValue(md, worker, top);

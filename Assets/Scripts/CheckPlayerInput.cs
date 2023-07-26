@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.XR.Hands;
+
 public class CheckPlayerInput : NetworkBehaviour
 {
     // Start is called before the first frame update
+    public GameObject HandVizualizerObject;
     public GameObject deviceSim;
     public GameObject deviceSimUi;
     public GameObject myRig;
@@ -54,6 +57,21 @@ public class CheckPlayerInput : NetworkBehaviour
             
     }
 
+    public void setScale(float input){
+        Debug.Log("calling setScale in checkPlayerInput");
+        HandVizualizerObject.GetComponent<NetworkedHandVIz>().scale = input;
+        setScaleLocal(input);
+        
+    }
+    [ClientRpc]
+    public void setScaleLocal(float input){
+        Debug.Log("updating the scale locally");
+        Debug.Log("Input is : " + input);
+        HandVizualizerObject.GetComponent<NetworkedHandVIz>().scale = input;
+        Debug.Log("and now scale is : "  + HandVizualizerObject.GetComponent<NetworkedHandVIz>().scale );
+
+    }
+
 
 
 
@@ -69,15 +87,7 @@ public class CheckPlayerInput : NetworkBehaviour
 
     }
 
-    [Client]
-    public void setScale(float percentage){
-        foreach(var x in wristForScale){
-            Debug.Log("changing either left or right scale");
-            if(!isLocalPlayer){return;}
-            x.transform.localScale += new Vector3(percentage,percentage,percentage);
-        }
-
-    }
+    
 
     // [Client]
     // public void setScenePlayer() {
