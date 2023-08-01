@@ -74,8 +74,12 @@ public class SceneController : NetworkBehaviour
         GameObject buttonObject = GameObject.FindGameObjectWithTag("ButtonController");
         myButtonController = buttonObject.GetComponent<ButtonController>();
         //myButtonController.setInitialNumbers();
+        myButtonController.player1Pid = myNetworkManager.player1PID;
+        myButtonController.player2Pid = myNetworkManager.player2PID;
         
     }
+
+    
 
     
     
@@ -204,5 +208,7 @@ public class SceneController : NetworkBehaviour
 
 
         }
+
+        
 
 }

@@ -15,6 +15,7 @@ public class ButtonTestScript : NetworkBehaviour
     public enum buttonInfo{
         Correct,Incorrect
     }
+
     public enum buttonInfoType{
         Answers, Confidence, P2Confidence
     }
@@ -73,8 +74,10 @@ public class ButtonTestScript : NetworkBehaviour
     {
         if(myController.hideAnimation && thisButtonType == buttonInfoType.Answers){
             animateDown();
+            hideGesture();
         }
         if(myController.showAnimation && thisButtonType == buttonInfoType.Answers){
+            hideText();
             animateUp();
         }
 
@@ -84,11 +87,14 @@ public class ButtonTestScript : NetworkBehaviour
         }
         if(myController.hideConfidenceButtons && thisButtonType == buttonInfoType.Confidence){
             hideConfidence();
+            showText(myController.gotCorrect);
+            
 
         }
         
 
         if(myController.showConfidenceButtonsP2 && thisButtonType == buttonInfoType.P2Confidence){
+            Debug.Log("calling show confidence P2");
             showConfidenceP2();
         }
         if(timeForNewRandom){
@@ -102,9 +108,39 @@ public class ButtonTestScript : NetworkBehaviour
 
         }
         if(myController.hideP2Confidence && thisButtonType == buttonInfoType.P2Confidence){
+            Debug.Log("hiding p2 Confidence");
             hideConfidenceQuestionaireP2();
 
         }
+        
+    }
+    
+    [ClientRpc]
+    public void hideGesture(){
+        myController.charadeText.SetActive(false);
+        
+    }
+    [ClientRpc]
+    public void showGesture(){
+        myController.charadeText.SetActive(true);
+        
+    }
+    
+    [ClientRpc]
+    public void showText(bool showCorrect){
+        if(showCorrect){
+            WinnerText.SetActive(true);
+        }else if(!showCorrect){
+            LoserText.SetActive(true);
+        }
+        
+    }
+
+    [ClientRpc]
+    public void hideText(){
+            WinnerText.SetActive(false);
+            LoserText.SetActive(false);
+        
         
     }
 
@@ -144,35 +180,70 @@ public class ButtonTestScript : NetworkBehaviour
         
         Debug.Log("calling press");
         if(thisButtonInfo == buttonInfo.Correct && thisButtonType == buttonInfoType.Answers){
-            Debug.Log("Got it correct! setting thing to active");
-            WinnerText.gameObject.SetActive(true);
-            LoserText.gameObject.SetActive(false);
+            // Debug.Log("Got it correct! setting thing to active");
+            setGotCorrect();
             // myController.hideAnimation = true;
             serverSetAnimateDownTrue();
             
             
         }else if(thisButtonType == buttonInfoType.Answers){
-            Debug.Log("Got it incorrect! setting things active");
-            LoserText.gameObject.SetActive(true);
-            WinnerText.gameObject.SetActive(false);
+            // Debug.Log("Got it incorrect! setting things active");
+            setGotIncorrect();
             // myController.hideAnimation = true;
             serverSetAnimateDownTrue();
         }
     }
+    [Server]
+    public void pressOnServer(){
+        Debug.Log("setting end interavl time now is " + Time.time);
+        myController.dataEndInterval.Add((Time.time.ToString()));
+        string pressedButton = gameObject.GetComponentInChildren<TMP_Text>().text;
+        Debug.Log("adding a button to button chosen name");
+        myController.dataButtonChosenName.Add(pressedButton);
+        if(thisButtonInfo == buttonInfo.Correct && thisButtonType == buttonInfoType.Answers){
+            Debug.Log("got it correct");
+            myController.dataChoseCorrect.Add("True");
+        }else if(thisButtonType == buttonInfoType.Answers && thisButtonInfo == buttonInfo.Incorrect){
+            Debug.Log("got it incorrect");
+            myController.dataChoseCorrect.Add("False");
+        }
+        
+        
+    }
+    [Command(requiresAuthority = false)]
+    public void setGotCorrect(){
+        myController.gotCorrect = true;
+
+    }
+    [Command(requiresAuthority = false)]
+    public void setGotIncorrect(){
+        myController.gotIncorrect = true;
+    }
+    [ClientRpc]
+    public void setSafteyTextOn(){
+        myController.SafetyText.SetActive(true);
+
+    }
+    [ClientRpc]
+    public void setSafteyTextoff(){
+        myController.SafetyText.SetActive(false);
+    }
+
 
 
     
     public void animateDown(){
         if(gameObject.transform.position.y > min_height){
+            setSafteyTextOn();
             Vector3 myVector = gameObject.transform.position;
             myVector.y = myVector.y - increment; 
             Quaternion myRotation = gameObject.transform.rotation;
             gameObject.transform.SetPositionAndRotation(myVector,myRotation);
-            Debug.Log("animating the orig buttons down");
+            // Debug.Log("animating the orig buttons down");
         }else{
             myController.hideAnimation = false;
             // serverSetAnimateDownFalse();
-            Debug.Log("setting myController to show the confidence buttons");
+            // Debug.Log("setting myController to show the confidence buttons");
             myController.showConfidenceButtons = true;
             // serverSetAnimateConfidenceUpTrue();
             // Debug.Log("show confidence buttons is : " + myController.showConfidenceButtons.ToString());
@@ -186,8 +257,12 @@ public class ButtonTestScript : NetworkBehaviour
             Quaternion myRotation = gameObject.transform.rotation;
             gameObject.transform.SetPositionAndRotation(myVector,myRotation);
         }else{
+            Debug.Log("setting start interval");
+            myController.dataStartInterval.Add((Time.time.ToString()));
+            setSafteyTextoff();
             gameObject.transform.SetPositionAndRotation(initialLocation,initialRotation);
             myController.showAnimation = false;
+            showGesture();
             // serverSetAnimateUpFalse();
         }
     }
@@ -198,6 +273,7 @@ public class ButtonTestScript : NetworkBehaviour
             Quaternion myRotation = gameObject.transform.rotation;
             gameObject.transform.SetPositionAndRotation(myVector,myRotation);
         }else{
+            setSafteyTextoff();
             gameObject.transform.SetPositionAndRotation(maxHeight,initialRotation);
             myController.showConfidenceButtons = false;
             // serverSetAnimateConfidenceUpFalse();
@@ -206,11 +282,13 @@ public class ButtonTestScript : NetworkBehaviour
     }
     public void hideConfidence(){
          if(gameObject.transform.position.y > min_height){
+            setSafteyTextOn();
             Vector3 myVector = gameObject.transform.position;
             myVector.y = myVector.y - increment; 
             Quaternion myRotation = gameObject.transform.rotation;
             gameObject.transform.SetPositionAndRotation(myVector,myRotation);
         }else{
+
             
 
             if(myController.quesitonairePhase == false){
@@ -236,6 +314,7 @@ public class ButtonTestScript : NetworkBehaviour
         }
 
     }
+    
     public void showConfidenceP2(){
          if(gameObject.transform.position.y < max_height){
             Vector3 myVector = gameObject.transform.position;
@@ -260,6 +339,18 @@ public class ButtonTestScript : NetworkBehaviour
 
          
             
+
+        }
+
+    }
+
+    public void hideConfidenceP1QuestionairePhase(){
+         if(gameObject.transform.position.y > min_height){
+            Vector3 myVector = gameObject.transform.position;
+            myVector.y = myVector.y - increment; 
+            Quaternion myRotation = gameObject.transform.rotation;
+            gameObject.transform.SetPositionAndRotation(myVector,myRotation);
+        }else{
 
         }
 
@@ -425,6 +516,50 @@ public class ButtonTestScript : NetworkBehaviour
 
         }
     }
+     [Server]
+    public void pressConfidence1Server(){
+       Debug.Log("PressedConfidence1Button");
+       myController.dataconfidenceInt.Add("1");
+
+    }
+
+    [Server]
+    public void pressConfidence2Server(){
+        Debug.Log("PressedConfidence2Button");
+        myController.dataconfidenceInt.Add("2");
+
+
+    }
+    [Server]
+    public void pressConfidence3Server(){
+      Debug.Log("PressedConfidence3Button");
+      myController.dataconfidenceInt.Add("3");
+
+    }
+    [Server]
+    public void pressConfidence4Server(){
+      Debug.Log("PressedConfidence4Button");
+      myController.dataconfidenceInt.Add("4");
+
+    }
+    [Server]
+    public void pressConfidence5Server(){
+        Debug.Log("PressedConfidence5Button");
+        myController.dataconfidenceInt.Add("5");
+
+    }
+    [Server]
+    public void pressConfidence6Server(){
+         Debug.Log("PressedConfidence6Button");
+         myController.dataconfidenceInt.Add("6");
+
+    }
+    [Server]
+    public void pressConfidence7Server(){
+        Debug.Log("PressedConfidence7Button");
+        myController.dataconfidenceInt.Add("7");
+
+    }
     [Client]
     public void pressConfidenceP21(){
         if(myController.quesitonairePhase == true){
@@ -491,13 +626,43 @@ public class ButtonTestScript : NetworkBehaviour
     [Client]
     public void pressConfidenceP27(){
          if(myController.quesitonairePhase == true){
-            Debug.Log("set p2 confidence 2 and then setting the phase of player2");
+            // Debug.Log("set p2 confidence 2 and then setting the phase of player2");
             confidence = 7;
             myController.changeQuestionairePhasePlayer2(myController.questionaireNumberP2);
         }else{
         confidence = 7;
         myController.hideConfidenceButtons = true;
         }
+    }
+    [Server]
+    public void pressConfidenceP21Server(){
+       Debug.Log("P2 pressed button1 ");
+
+    }
+    [Server]
+    public void pressConfidenceP22Server(){
+       Debug.Log("P2 pressed button2 ");
+
+    }
+    [Server]
+    public void pressConfidenceP23Server(){
+        Debug.Log("P2 pressed button3");
+    }
+    [Server]
+    public void pressConfidenceP24Server(){
+        Debug.Log("P2 pressed button4 ");
+    }
+    [Server]
+    public void pressConfidenceP25Server(){
+         Debug.Log("P2 pressed button5 ");
+    }
+    [Server]
+    public void pressConfidenceP26Server(){
+         Debug.Log("P2 pressed button6 ");
+    }
+    [Server]
+    public void pressConfidenceP27Server(){
+        Debug.Log("P2 pressed button7 ");
     }
 
     
@@ -521,7 +686,7 @@ public class ButtonTestScript : NetworkBehaviour
             Quaternion myRotation = gameObject.transform.rotation;
             gameObject.transform.SetPositionAndRotation(myVector,myRotation);
         }else{
-            myController.hideP1Confidence = false;
+            myController.hideP2Confidence = false;
     
         }
 

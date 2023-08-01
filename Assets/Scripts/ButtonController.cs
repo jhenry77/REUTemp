@@ -10,10 +10,12 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 using TMPro;
+using System.IO;
 
 public class ButtonController : NetworkBehaviour
 {
     public GameObject TFPText;
+    public GameObject SafetyText;
 
     public GameObject charadeText;
 
@@ -21,6 +23,8 @@ public class ButtonController : NetworkBehaviour
     public GameObject GuesserText;
     public GameObject CharadeText;
     public GameObject Questionaire;
+    public GameObject CorrectText;
+    public GameObject IncorrectText;
 
     [HideInInspector]
     [SyncVar]
@@ -46,6 +50,15 @@ public class ButtonController : NetworkBehaviour
     public GameObject[] P2QuestionaireButtons;
     public List<string> myQuestions = new List<string>();
 
+    public List<string> dataButtonName = new List<string>();
+    public List<string> dataChoseCorrect = new List<string>();
+    public List<string> dataButtonChosenName = new List<string>();
+    public List<string> dataCorrectButtonName = new List<string>();
+    public List<string> dataStartInterval = new List<string>();
+    public List<string> dataEndInterval = new List<string>();
+    public List<string> dataconfidenceInt = new List<string>();
+    public List<string> dataP2confidenceInt = new List<string>();
+
     public List<NumbersClass> myNumberQuestions = new List<NumbersClass>();
     public List<MediumQuestions> myMediumQuestions = new List<MediumQuestions>();
     public List<HardQuestions> myHardQuestions = new List<HardQuestions>();
@@ -53,6 +66,9 @@ public class ButtonController : NetworkBehaviour
     public int randQuestion;
     [SyncVar(hook = "randOrderChanged")]
     public int randOrder = 0;
+    public bool gotCorrect = false;
+    public bool gotIncorrect = false;
+    public bool timeToShow = false;
 
 
     public enum questionPhase{
@@ -80,6 +96,9 @@ public class ButtonController : NetworkBehaviour
     public int onlyCallOnce = 0;
     public int questionaireNumSeen = 0;
 
+    public int player1Pid;
+    public int player2Pid;
+
 
     
     public void itterateServerCall(int oldVal, int newVal){
@@ -91,6 +110,7 @@ public class ButtonController : NetworkBehaviour
         // Debug.Log("itterating only call once on server");
         onlyCallOnce++;
     }
+
     
         
     
@@ -98,8 +118,9 @@ public class ButtonController : NetworkBehaviour
 
     public void RandQuestionChanged(int oldVal, int newVal){
         randQuestion = newVal;
-        Debug.Log("Hook called randQuesiton is " + randQuestion);
+        // Debug.Log("Hook called randQuesiton is " + randQuestion);
     }
+
     public void randOrderChanged(int oldVal, int newVal){
         randOrder = newVal;
         // Debug.Log("Hook called randOrder is:  " + randOrder);
@@ -199,132 +220,259 @@ public class ButtonController : NetworkBehaviour
             incorrectAnswer2 = "4"
         });
 
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Motorcycle",
             incorrectAnswer1 = "Plane",
             incorrectAnswer2 = "Car"
         });
 
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Football",
             incorrectAnswer1 = "Baseball",
             incorrectAnswer2 = "Volleyball"
         });
 
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Swimming",
             incorrectAnswer1 = "Kayaking",
             incorrectAnswer2 = "Pitcher"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Golf",
             incorrectAnswer1 = "Baseball",
             incorrectAnswer2 = "Basketball"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Diving",
             incorrectAnswer1 = "Swimming",
             incorrectAnswer2 = "Kayaking"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Ice Skaing",
             incorrectAnswer1 = "Bobsledding",
             incorrectAnswer2 = "Climbing"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Baseball",
             incorrectAnswer1 = "Tennis",
             incorrectAnswer2 = "Golf"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Boxing",
             incorrectAnswer1 = "Karate",
             incorrectAnswer2 = "Weight lifting"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Violin",
             incorrectAnswer1 = "Cello",
             incorrectAnswer2 = "Guitar"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Clarinet",
             incorrectAnswer1 = "Trumpet",
             incorrectAnswer2 = "Flute"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Ukelele",
             incorrectAnswer1 = "Guitar",
             incorrectAnswer2 = "Triangle"
         });
-        myMediumQuestions.Add(new MediumQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Harmonica",
             incorrectAnswer1 = "Trombone",
             incorrectAnswer2 = "Kazoo"
         });
 
 
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Segway",
             incorrectAnswer1 = "Boat",
             incorrectAnswer2 = "HorseBack\nRiding"
         });
 
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Softball",
             incorrectAnswer1 = "Baseball",
             incorrectAnswer2 = "Football"
         });
 
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Table Tennis",
             incorrectAnswer1 = "Tennis",
             incorrectAnswer2 = "Baseball"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Kayaking",
             incorrectAnswer1 = "Rowing",
             incorrectAnswer2 = "Swimming"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Snowboarding",
             incorrectAnswer1 = "Skiing",
             incorrectAnswer2 = "Gymnastics"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Sloth",
             incorrectAnswer1 = "Rhino",
             incorrectAnswer2 = "Swan"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Frog",
             incorrectAnswer1 = "Rabbit",
             incorrectAnswer2 = "Mouse"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Steak",
             incorrectAnswer1 = "Lasagna",
             incorrectAnswer2 = "Spaghetti"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Secretary",
             incorrectAnswer1 = "Truck Driver",
             incorrectAnswer2 = "Judge"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Nurse",
             incorrectAnswer1 = "Flight\nAttendant",
             incorrectAnswer2 = "Construction\nWorker"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Gambling",
             incorrectAnswer1 = "Winning a Race",
             incorrectAnswer2 = "Monopoly"
         });
-        myHardQuestions.Add(new HardQuestions{
+        myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "Indiana Jones",
             incorrectAnswer1 = "The Office",
             incorrectAnswer2 = "Black Mirror"
         });
+
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Motorcycle",
+        //     incorrectAnswer1 = "Plane",
+        //     incorrectAnswer2 = "Car"
+        // });
+
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Football",
+        //     incorrectAnswer1 = "Baseball",
+        //     incorrectAnswer2 = "Volleyball"
+        // });
+
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Swimming",
+        //     incorrectAnswer1 = "Kayaking",
+        //     incorrectAnswer2 = "Pitcher"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Golf",
+        //     incorrectAnswer1 = "Baseball",
+        //     incorrectAnswer2 = "Basketball"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Diving",
+        //     incorrectAnswer1 = "Swimming",
+        //     incorrectAnswer2 = "Kayaking"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Ice Skaing",
+        //     incorrectAnswer1 = "Bobsledding",
+        //     incorrectAnswer2 = "Climbing"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Baseball",
+        //     incorrectAnswer1 = "Tennis",
+        //     incorrectAnswer2 = "Golf"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Boxing",
+        //     incorrectAnswer1 = "Karate",
+        //     incorrectAnswer2 = "Weight lifting"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Violin",
+        //     incorrectAnswer1 = "Cello",
+        //     incorrectAnswer2 = "Guitar"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Clarinet",
+        //     incorrectAnswer1 = "Trumpet",
+        //     incorrectAnswer2 = "Flute"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Ukelele",
+        //     incorrectAnswer1 = "Guitar",
+        //     incorrectAnswer2 = "Triangle"
+        // });
+        // myMediumQuestions.Add(new MediumQuestions{
+        //     correctAnswer = "Harmonica",
+        //     incorrectAnswer1 = "Trombone",
+        //     incorrectAnswer2 = "Kazoo"
+        // });
+
+
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Segway",
+        //     incorrectAnswer1 = "Boat",
+        //     incorrectAnswer2 = "HorseBack\nRiding"
+        // });
+
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Softball",
+        //     incorrectAnswer1 = "Baseball",
+        //     incorrectAnswer2 = "Football"
+        // });
+
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Table Tennis",
+        //     incorrectAnswer1 = "Tennis",
+        //     incorrectAnswer2 = "Baseball"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Kayaking",
+        //     incorrectAnswer1 = "Rowing",
+        //     incorrectAnswer2 = "Swimming"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Snowboarding",
+        //     incorrectAnswer1 = "Skiing",
+        //     incorrectAnswer2 = "Gymnastics"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Sloth",
+        //     incorrectAnswer1 = "Rhino",
+        //     incorrectAnswer2 = "Swan"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Frog",
+        //     incorrectAnswer1 = "Rabbit",
+        //     incorrectAnswer2 = "Mouse"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Steak",
+        //     incorrectAnswer1 = "Lasagna",
+        //     incorrectAnswer2 = "Spaghetti"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Secretary",
+        //     incorrectAnswer1 = "Truck Driver",
+        //     incorrectAnswer2 = "Judge"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Nurse",
+        //     incorrectAnswer1 = "Flight\nAttendant",
+        //     incorrectAnswer2 = "Construction\nWorker"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Gambling",
+        //     incorrectAnswer1 = "Winning a Race",
+        //     incorrectAnswer2 = "Monopoly"
+        // });
+        // myHardQuestions.Add(new HardQuestions{
+        //     correctAnswer = "Indiana Jones",
+        //     incorrectAnswer1 = "The Office",
+        //     incorrectAnswer2 = "Black Mirror"
+        // });
         
 
         
@@ -348,12 +496,13 @@ public class ButtonController : NetworkBehaviour
     }
     
     public void setInitialNumbers(){
-        // Debug.Log("setting the button name");
+         Debug.Log("setting the initial buttonNames");
         StartCoroutine(getRandomthenchangeButtonName());
+        Debug.Log("starting the initial time");
+        dataStartInterval.Add(Time.time.ToString());
     }
     
     public IEnumerator getRandomthenchangeButtonName(){
-        yield return new WaitForSeconds(1);
         // Debug.Log("mynumber qestions length is : " + myNumberQuestions.Count);
         if(currentQuestionPhase == questionPhase.Easy){
             // Debug.Log("Getting random question number for easy");
@@ -374,6 +523,8 @@ public class ButtonController : NetworkBehaviour
 
     [Server]
     public void changeButtonName(questionPhase currentQuestionPhase){
+        Debug.Log("Just entered changeButtonName");
+    
         if(currentQuestionPhase == questionPhase.Easy){
             // Debug.Log("setting a random easy question and current phase is " +currentPhase );
             //CMDgetRandom(0,myNumberQuestions.Count);
@@ -469,7 +620,10 @@ public class ButtonController : NetworkBehaviour
                     break;
 
             }
-
+            string answer = myNumberQuestions[randQuestion].correctAnswer;
+            Debug.Log("adding data correct button name");
+            dataCorrectButtonName.Add(answer);
+            storeButtonName(myButtons[0].GetComponentInChildren<TMP_Text>().text,myButtons[1].GetComponentInChildren<TMP_Text>().text,myButtons[2].GetComponentInChildren<TMP_Text>().text );
             changeCharadeText(myNumberQuestions[randQuestion].correctAnswer);
             myNumberQuestions.RemoveAt(randQuestion);
             currentPhase++;
@@ -481,10 +635,10 @@ public class ButtonController : NetworkBehaviour
         
 
         if(currentQuestionPhase == questionPhase.Medium){
-            Debug.Log("setting a random medium quesitonand current phase is " +currentPhase );
-            Debug.Log("Random num is  " + randQuestion);
+            // Debug.Log("setting a random medium quesitonand current phase is " +currentPhase );
+            // Debug.Log("Random num is  " + randQuestion);
             
-            Debug.Log("randQuestion order is " + randOrder);
+            // Debug.Log("randQuestion order is " + randOrder);
             switch(randOrder){
                 case 0:
                     ButtonTestScript thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
@@ -582,10 +736,10 @@ public class ButtonController : NetworkBehaviour
 
         }
         if(currentQuestionPhase == questionPhase.Hard){
-            Debug.Log("changing buttons to a random hard quesionand current phase is " +currentPhase );
-            Debug.Log("Random num is  " + randQuestion);
+            // Debug.Log("changing buttons to a random hard quesionand current phase is " +currentPhase );
+            // Debug.Log("Random num is  " + randQuestion);
            
-            Debug.Log("randQuestion order is " + randOrder);
+            // Debug.Log("randQuestion order is " + randOrder);
             switch(randOrder){
                 case 0:
                     ButtonTestScript thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
@@ -675,6 +829,7 @@ public class ButtonController : NetworkBehaviour
                     break;
 
             }
+            
             changeCharadeText(myHardQuestions[randQuestion].correctAnswer);
             myHardQuestions.RemoveAt(randQuestion);
             currentPhase++;
@@ -689,7 +844,7 @@ public class ButtonController : NetworkBehaviour
 
     [ClientRpc]
     public void changeButtonNameClient(int buttonNum, string buttonName, bool correct){
-        Debug.Log("chaning the server's button name");
+        // Debug.Log("chaning the server's button name");
         ButtonTestScript myTestScript = myButtons[buttonNum].GetComponent<ButtonTestScript>();
         myTestScript.setTextName(buttonName);
         if(correct){
@@ -702,22 +857,22 @@ public class ButtonController : NetworkBehaviour
          
     }
     public void changePhase(int phase){
+        Debug.Log("in Change phase");
         if(phase == 0){
-            Debug.Log("Phase is 0");
-            Debug.Log("setting quesiton phase to easy");
+            //  Debug.Log("were in if == 0 and Phase is: " +currentPhase);
+            // Debug.Log("setting quesiton phase to easy");
             currentQuestionPhase = questionPhase.Easy;
         }
-        if(phase == 1){
-            Debug.Log("phase is 1 so starting questionaire phase");
-            currentQuestionPhase = questionPhase.Questionaire;
-            startQuestionairephase();
-             //currentQuestionPhase = questionPhase.Medium;
-             //Debug.Log("setting question phase to medium");
-        }
-        if(phase == 8){
-            currentQuestionPhase = questionPhase.Hard;
-            Debug.Log("Settin question phase to be hard");
-        }
+        // if(phase == 4){
+        //      Debug.Log("phase is 1 so starting questionaire phase");
+            
+        //     currentQuestionPhase = questionPhase.Medium;
+        //     Debug.Log("setting question phase to medium");
+        // }
+        // if(phase == 8){
+        //     currentQuestionPhase = questionPhase.Hard;
+        //     // Debug.Log("Settin question phase to be hard");
+        // }
         if(phase == 12){
             currentQuestionPhase = questionPhase.Questionaire;
             startQuestionairephase();
@@ -738,7 +893,8 @@ public class ButtonController : NetworkBehaviour
 
     
     public void startQuestionairephase(){
-        Debug.Log("Starting the questionaire phase");
+        // Debug.Log("Starting the questionaire phase");
+        storeDataInFile();
         searchForSceneController();
         quesitonairePhase = true;
         showConfidenceButtons = true;
@@ -790,7 +946,7 @@ public class ButtonController : NetworkBehaviour
     }
 
     public void animateQuestionareDown(){
-        Debug.Log("animating the questionaire down");
+        // Debug.Log("animating the questionaire down");
         if(Questionaire.transform.position.y > min_height){
             Vector3 myPosition = Questionaire.transform.position;
             myPosition.y -= .001f;
@@ -807,7 +963,7 @@ public class ButtonController : NetworkBehaviour
 
     }
      public void changeQuestionaireTextPlayer2(string newInput){
-        Debug.Log("setting player 2 text component");
+        // Debug.Log("setting player 2 text component");
        TMP_Text myText = CharadeText.GetComponent<TMP_Text>();
         myText.text = newInput;
 
@@ -819,29 +975,30 @@ public class ButtonController : NetworkBehaviour
     }
     [Command(requiresAuthority = false)]
     public void setServeranimateP1Down(){
-        hideConfidenceButtons = true;
+        hideP1Confidence = true;
     }
     
     public void changeQuestionairePhasePlayer1(int phase){
         if(questionaireNumberP1 == 2){
             setServeranimateP1Down();
             
-            Debug.Log("putting one in numWaiting questionaire");
+            // Debug.Log("putting one in numWaiting questionaire");
             incrementNumWaitingInQuestionaire();
-            Debug.Log("about to do if statement and numWaiting is" + numWaitingInQuestionaire);
-            Debug.Log("Chaning the questionaire text player 1");
+            // Debug.Log("about to do if statement and numWaiting is" + numWaitingInQuestionaire);
+            // Debug.Log("Chaning the questionaire text player 1");
             changeQuestionaireTextPlayer1("Please wait for your partner\n to finish answering their questions");
             if(numWaitingInQuestionaire >= 2){
                 Debug.Log("resesting to beginning");
                 setServerQuestionaireDown();
                 hideBothConfidence();
                 resetToBeginning();
+                
 
 
             }
             return;
         }
-        Debug.Log("changin it back to myquestions");
+        // Debug.Log("changin it back to myquestions");
         changeQuestionaireTextPlayer1(myQuestions[phase]);
         questionaireNumberP1++;
         
@@ -851,29 +1008,30 @@ public class ButtonController : NetworkBehaviour
         if(questionaireNumberP2 == 2){
             setServeranimateP2Down();
 
-            Debug.Log("putting one in numWaiting questionaire");
+            // Debug.Log("putting one in numWaiting questionaire");
             incrementNumWaitingInQuestionaire();
-            Debug.Log("changing the player 2 text");
+            // Debug.Log("changing the player 2 text");
             changeQuestionaireTextPlayer2("Please wait for your partner to finish answering their questions");
             if(numWaitingInQuestionaire >= 2){
                 Debug.Log("Reseting to begining");
                 setServerQuestionaireDown();
                 hideBothConfidence();
                 resetToBeginning();
+            
                 
             }
             
             return;
             
         }
-        Debug.Log("changin it back to myquestions and the current phase is " + phase);
+        // Debug.Log("changin it back to myquestions and the current phase is " + phase);
         changeQuestionaireTextPlayer2(myQuestions[phase]);
         questionaireNumberP2++;
 
     }
     [Command(requiresAuthority = false)]
     public void incrementNumWaitingInQuestionaire(){
-        Debug.Log("incrementing num waiting in questionaire which is " + numWaitingInQuestionaire);
+        // Debug.Log("incrementing num waiting in questionaire which is " + numWaitingInQuestionaire);
         numWaitingInQuestionaire++;
     }
     [Command(requiresAuthority = false)]
@@ -918,6 +1076,7 @@ public class ButtonController : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void resetToBeginning(){
         // Debug.Log("seting wrist scales on server");
+
         
         questionaireNumSeen++;
         if(questionaireNumSeen == 1){
@@ -931,7 +1090,7 @@ public class ButtonController : NetworkBehaviour
         questionaireNumberP2 = 0;
         quesitonairePhase = false;
         currentQuestionPhase = questionPhase.Easy;
-        if(questionaireNumSeen == 2){
+        if(questionaireNumSeen == 3){
             TFPText.SetActive(true);
             endGameClient();
             
@@ -959,6 +1118,8 @@ public class ButtonController : NetworkBehaviour
      [ClientRpc]
      public void endGameClient(){
         TFPText.SetActive(true);
+        CorrectText.SetActive(false);
+        IncorrectText.SetActive(false);
         foreach(var x in myButtons){
             x.SetActive(false);
         }
@@ -986,6 +1147,87 @@ public class ButtonController : NetworkBehaviour
     public IEnumerator waitForEndofanimation(){
         yield return new WaitForSecondsRealtime(2);
 
+    }
+
+    [Server]
+    public void storeButtonName(string Button1, string Button2, string Button3){
+        Debug.Log("Got these three strings: " + Button1 + ", " +Button2 + ", " + Button3);
+        dataButtonName.Add(Button1);
+        dataButtonName.Add(Button2);
+        dataButtonName.Add(Button3);
+        
+
+    }
+    public string makeFileName(string fileName, int i = 0){
+        if(File.Exists(fileName+"v_"+i.ToString() + ".csv")){
+            return makeFileName(fileName, ++i);
+        }
+        return fileName +"v_"+i.ToString() +".csv";
+    }
+
+    [Server]
+    public void storeDataInFile(){
+        
+        string path = "D:" + "CharadeLogs/Charade_" + player1Pid + "_" + player2Pid + "_Results";
+        path = makeFileName(path);
+        Debug.Log("Saving session data to: " + path);
+            Debug.Log("Databuttonname size is: " +dataButtonName.Count);
+            Debug.Log("DataCorrectButtonName size is: " +dataCorrectButtonName.Count);
+            Debug.Log("data button chose name: " +dataButtonChosenName.Count);
+            Debug.Log("DataChoseCorrect size is: " +dataChoseCorrect.Count);
+            Debug.Log("DataConfidenceInt size is: " +dataconfidenceInt.Count);
+            Debug.Log("DataStartInterval size is: " +dataStartInterval.Count);
+            Debug.Log("DataEndInterval" + dataEndInterval.Count);
+        
+        // using(StreamWriter myWriter = new StreamWriter(path)){
+        //     myWriter.WriteLine("Int Pid,Act Pid,Button1, Button2, Button3, Button Answered, Correct Button, got correct, Confidence of Guess,Time when Seen, Time when pressed, Time Difference");
+        //     Debug.Log("Databuttonname size is: " +dataButtonName.Count);
+        //         Debug.Log("DataCorrectButtonName size is: " +dataCorrectButtonName.Count);
+        //         Debug.Log("DataChoseCorrect size is: " +dataChoseCorrect.Count);
+        //         Debug.Log("DataConfidenceInt size is: " +dataconfidenceInt.Count);
+        //         Debug.Log("DataStartInterval size is: " +dataStartInterval.Count);
+        //         Debug.Log("DataEndInterval" + dataEndInterval.Count);
+        //     for(int i = 0; i < 12; i++){
+        //         Debug.Log("player 1 pid is : " + player1Pid.ToString());
+        //         Debug.Log("player 2 pid is : " +player2Pid.ToString());
+        //         Debug.Log("Button1 is : " +dataButtonName[0]);
+        //         Debug.Log("Button2 is : " +dataButtonName[1]);
+        //         Debug.Log("Button 3 is : " +dataButtonName[2]);
+        //         Debug.Log("Correct button name : " +dataCorrectButtonName[0]);
+        //         Debug.Log("They chose correct : " +dataChoseCorrect[0]);
+        //         Debug.Log("Confidence int is : " +dataconfidenceInt[0]);
+        //         Debug.Log("Time start is  : " +dataStartInterval[0].ToString());
+        //         Debug.Log("Time end is  : " +dataEndInterval[0].ToString());
+        //         Debug.Log("Time difference is : " +(float.Parse(dataEndInterval[0]) - float.Parse(dataStartInterval[0])).ToString());
+
+                
+
+        //         //myWriter.WriteLine(player1Pid.ToString() + "," + player2Pid.ToString() + "," + dataButtonName[0] + "," + dataButtonName[1] + "," + dataButtonName[2] + "," + dataCorrectButtonName[0] + "," + dataChoseCorrect[0] +"," + dataconfidenceInt[0] + ","  + dataStartInterval[0].ToString() + "," +  dataEndInterval[0].ToString() + "," + (float.Parse(dataEndInterval[0]) - float.Parse(dataStartInterval[0])).ToString());
+        //         myWriter.Write(player1Pid.ToString() + ",");
+        //         myWriter.Write(player2Pid.ToString() + ",");
+        //         myWriter.Write(dataButtonName[0] + ",");
+        //         myWriter.Write(dataButtonName[1] + ",");
+        //         myWriter.Write(dataButtonName[2] + ",");
+        //         myWriter.Write(dataCorrectButtonName[0] + ",");
+        //         myWriter.Write(dataChoseCorrect[0] +",");
+        //         myWriter.Write(dataconfidenceInt[0] + ",");
+        //         myWriter.Write(dataStartInterval[0].ToString() + ",");
+        //         myWriter.Write(dataEndInterval[0].ToString() + ",");
+        //         myWriter.Write((float.Parse(dataEndInterval[0]) - float.Parse(dataStartInterval[0])).ToString());
+
+        //         dataButtonChosenName.RemoveAt(0);
+        //         dataButtonName.RemoveAt(0);
+        //         dataButtonName.RemoveAt(0);
+        //         dataButtonName.RemoveAt(0);
+        //         dataCorrectButtonName.RemoveAt(0);
+        //         dataChoseCorrect.RemoveAt(0);
+        //         dataconfidenceInt.RemoveAt(0);
+        //         dataStartInterval.RemoveAt(0);
+        //         dataEndInterval.RemoveAt(0);
+
+                
+        //     }
+        // }
     }
    
 
