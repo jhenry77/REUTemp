@@ -48,6 +48,10 @@ public class ButtonController : NetworkBehaviour
     public GameObject[] myButtons;
     public GameObject[] confidenceButtons;
     public GameObject[] P2QuestionaireButtons;
+    public GameObject P17Button;
+    public GameObject P27Button;
+    public GameObject P11Button;
+    public GameObject P21Button;
     public List<string> myQuestions = new List<string>();
 
     public List<string> dataButtonName = new List<string>();
@@ -57,7 +61,9 @@ public class ButtonController : NetworkBehaviour
     public List<string> dataStartInterval = new List<string>();
     public List<string> dataEndInterval = new List<string>();
     public List<string> dataconfidenceInt = new List<string>();
-    public List<string> dataP2confidenceInt = new List<string>();
+    public List<string> dataHandSize = new List<string>();
+    public List<string> dataP1QuestionaireAnswer = new List<string>();
+    public List<string> dataP2QuestionaireAnswer = new List<string>();
 
     public List<NumbersClass> myNumberQuestions = new List<NumbersClass>();
     public List<MediumQuestions> myMediumQuestions = new List<MediumQuestions>();
@@ -69,6 +75,10 @@ public class ButtonController : NetworkBehaviour
     public bool gotCorrect = false;
     public bool gotIncorrect = false;
     public bool timeToShow = false;
+    public bool p1Waiting = false;
+    public bool p2Waiting = false;
+    
+    public List<float[]> handSizeOrder = new List<float[]> { new float[] {1f,.75f,1.25f}, new float[]{1f, 1.25f, .75f}, new float[]{1.25f, 1f, .75f}, new float[] {1.25f, .75f, 1f}, new float[] {.75f, 1.25f, 1f}, new float[] {.75f, 1f, 1.25f} };
 
 
     public enum questionPhase{
@@ -98,7 +108,18 @@ public class ButtonController : NetworkBehaviour
 
     public int player1Pid;
     public int player2Pid;
-
+    public bool timeForRandom = false;
+    public int orderOfhands;
+    public bool pressed = false;
+    public bool confidencePressed = false;
+    public bool P2confidencePressed = false;
+    public bool TlXQuestions = false;
+    public bool P2TlXQuestions = false;
+    public GameObject[] p1TlxButtons;
+    public GameObject[] p2TlxButtons;
+    public GameObject p1ConfidenceParent;
+    public GameObject p2ConfidenceParent;
+    public GameObject confidenceText;
 
     
     public void itterateServerCall(int oldVal, int newVal){
@@ -111,6 +132,27 @@ public class ButtonController : NetworkBehaviour
         onlyCallOnce++;
     }
 
+
+    [ClientRpc]
+    public void setSafteyTExtOnClient(){
+        SafetyText.SetActive(true);
+
+    }
+    [ClientRpc]
+    public void setSafteyTextoffClient(){
+        SafetyText.SetActive(false);
+
+    }
+    [ClientRpc]
+    public void showWhatToGesture(){
+        charadeText.SetActive(true);
+    }
+    [ClientRpc]
+    public void hideWhatToGesture(){
+        charadeText.SetActive(false);
+
+    }
+    
     
         
     
@@ -139,8 +181,26 @@ public class ButtonController : NetworkBehaviour
 
     }
 
-    
+    [ClientRpc]
+    public void updateGuesserCorrectText(bool isCorrect){
+        if(isCorrect){
+            CorrectText.SetActive(true);
+            IncorrectText.SetActive(false);
+        }else{
+            IncorrectText.SetActive(true);
+            CorrectText.SetActive(false);
+        }
 
+    }
+    [ClientRpc]
+    public void turnOffCorrectText(){
+        CorrectText.SetActive(false);
+        IncorrectText.SetActive(false);
+    }
+ 
+
+    
+    [Server]
     void FixedUpdate(){
         if(questionaireUp){
             animateQuestionareUp();
@@ -148,6 +208,12 @@ public class ButtonController : NetworkBehaviour
         }
         if(questionaireDown){
             animateQuestionareDown();
+        }
+        if(timeForRandom){
+            // Debug.Log("In time for new Random");
+            StartCoroutine(getRandomthenchangeButtonName());
+            timeForRandom = false;
+
         }
     }
     
@@ -480,13 +546,32 @@ public class ButtonController : NetworkBehaviour
 
 
 
-        myQuestions.Add("I liked the physical appearance\n of my virtual hands.");
-        myQuestions.Add("My thoughts were cleat to my partner");
-        myQuestions.Add("My partner's thoughts were clear to me.");
-        myQuestions.Add("It was easy to understand my partner");
-        myQuestions.Add("My partner found it easy to understand me");
-        myQuestions.Add("Understanding my partner was difficult");
-        myQuestions.Add("My partner had diffuclty understanding me");
+        myQuestions.Add("I felt as if the virtual\nhands were part of my body.");
+        myQuestions.Add("It sometimes seemed like my own hands\n came into contact with the buttons.");
+        myQuestions.Add("I thought the virtual hands on\n the screen looked realistic.");
+        myQuestions.Add("I was so immersed in the virtual\n environment, it seemed real.");
+        myQuestions.Add("I felt like using my virtual hands to communicate was fun.");
+        myQuestions.Add("I felt like I could very efficiently use\n my virtual hands to complete the task.");
+        myQuestions.Add("I felt as if I could cause movements\n of the virtual hands.");
+        myQuestions.Add("It felt as if I could control movements\n of the virtual hands.");
+        myQuestions.Add("I felt as if the virtual hands moved just like\n I wanted them to, as if they were obeying my own will");
+        myQuestions.Add("My thoughts were clear to my partner.");
+        myQuestions.Add("My partner’s thoughts were clear to me.");
+        myQuestions.Add("It was easy to understand my partner.");
+        myQuestions.Add("Understanding my partner was difficult.");
+        myQuestions.Add("My partner had difficulty understanding me");
+        myQuestions.Add("The other person let me know that\n I was communicating effectively.");
+        myQuestions.Add("Nothing was accomplished.");
+        myQuestions.Add("I was very dissatisfied with the\n communication with my partner during the game.");
+        myQuestions.Add("I felt that during the game I was able\n to present myself as I wanted the other person to view me.");
+        myQuestions.Add("I did not enjoy communicating with\n my partner during the game.");
+        myQuestions.Add("How mentally demanding was the task?");
+        myQuestions.Add("How physically demanding was the task?");
+        myQuestions.Add("How hurried or rushed was the pace of the task?");
+        myQuestions.Add("How successful were you in accomplishing\n what you were asked to do?");
+        myQuestions.Add("How hard did you have to work to accomplish\n your level of performance?");
+        myQuestions.Add("How insecure, discouraged, irritated,\n stressed, and annoyed were you?");
+
         
         
         max_height = Questionaire.transform.position.y + .8f;
@@ -496,13 +581,19 @@ public class ButtonController : NetworkBehaviour
     }
     
     public void setInitialNumbers(){
-         Debug.Log("setting the initial buttonNames");
+        
+        // Debug.Log("setting the initial buttonNames");
         StartCoroutine(getRandomthenchangeButtonName());
-        Debug.Log("starting the initial time");
+        // Debug.Log("starting the initial time");
+        if(questionaireNumSeen >= 1){
+            return;
+        }
         dataStartInterval.Add(Time.time.ToString());
     }
     
     public IEnumerator getRandomthenchangeButtonName(){
+        yield return new WaitForSeconds(1);
+        // Debug.Log("inside get random then change button name");
         // Debug.Log("mynumber qestions length is : " + myNumberQuestions.Count);
         if(currentQuestionPhase == questionPhase.Easy){
             // Debug.Log("Getting random question number for easy");
@@ -523,7 +614,11 @@ public class ButtonController : NetworkBehaviour
 
     [Server]
     public void changeButtonName(questionPhase currentQuestionPhase){
-        Debug.Log("Just entered changeButtonName");
+        // Debug.Log("Just entered changeButtonName");
+        if(currentPhase ==12){
+            currentPhase = 13;
+            return;
+        }
     
         if(currentQuestionPhase == questionPhase.Easy){
             // Debug.Log("setting a random easy question and current phase is " +currentPhase );
@@ -621,224 +716,19 @@ public class ButtonController : NetworkBehaviour
 
             }
             string answer = myNumberQuestions[randQuestion].correctAnswer;
-            Debug.Log("adding data correct button name");
+            // Debug.Log("adding data correct button name");
+            answer = combineString(answer);
             dataCorrectButtonName.Add(answer);
             storeButtonName(myButtons[0].GetComponentInChildren<TMP_Text>().text,myButtons[1].GetComponentInChildren<TMP_Text>().text,myButtons[2].GetComponentInChildren<TMP_Text>().text );
             changeCharadeText(myNumberQuestions[randQuestion].correctAnswer);
             myNumberQuestions.RemoveAt(randQuestion);
             currentPhase++;
-
-
-
-        }
-
-        
-
-        if(currentQuestionPhase == questionPhase.Medium){
-            // Debug.Log("setting a random medium quesitonand current phase is " +currentPhase );
-            // Debug.Log("Random num is  " + randQuestion);
+            Debug.Log("just itterated currentPhase which is now" + currentPhase);
             
-            // Debug.Log("randQuestion order is " + randOrder);
-            switch(randOrder){
-                case 0:
-                    ButtonTestScript thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(0,myMediumQuestions[randQuestion].correctAnswer, true);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(1,myMediumQuestions[randQuestion].incorrectAnswer1, false);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(2,myMediumQuestions[randQuestion].incorrectAnswer2, false);
-                    break;
-                case 1:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(0,myMediumQuestions[randQuestion].correctAnswer, true);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(1,myMediumQuestions[randQuestion].incorrectAnswer2, false);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(2,myMediumQuestions[randQuestion].incorrectAnswer1, false);
-                    
-                    break;
-                case 2:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(0,myMediumQuestions[randQuestion].incorrectAnswer1, false);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(1,myMediumQuestions[randQuestion].correctAnswer, true);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(2,myMediumQuestions[randQuestion].incorrectAnswer2, false);
-                    break;
-                case 3:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(0,myMediumQuestions[randQuestion].incorrectAnswer1, false);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(1,myMediumQuestions[randQuestion].incorrectAnswer2, false);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(2,myMediumQuestions[randQuestion].correctAnswer, true);
-
-                    break;
-                case 4:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(0,myMediumQuestions[randQuestion].incorrectAnswer2, false);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
-                    changeButtonNameClient(1,myMediumQuestions[randQuestion].correctAnswer, true);
-                    thisButtonScript.setCorrect();
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(2,myMediumQuestions[randQuestion].incorrectAnswer1, false);
-                    break;
-                case 5:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(0,myMediumQuestions[randQuestion].incorrectAnswer2, false);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(1,myMediumQuestions[randQuestion].incorrectAnswer1, false);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myMediumQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(2,myMediumQuestions[randQuestion].correctAnswer, true);
-                    break;
-
-            }
-            changeCharadeText(myMediumQuestions[randQuestion].correctAnswer);
-            myMediumQuestions.RemoveAt(randQuestion);
-            currentPhase++;
 
 
 
         }
-        if(currentQuestionPhase == questionPhase.Hard){
-            // Debug.Log("changing buttons to a random hard quesionand current phase is " +currentPhase );
-            // Debug.Log("Random num is  " + randQuestion);
-           
-            // Debug.Log("randQuestion order is " + randOrder);
-            switch(randOrder){
-                case 0:
-                    ButtonTestScript thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(0,myHardQuestions[randQuestion].correctAnswer, true);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(1,myHardQuestions[randQuestion].incorrectAnswer1, false);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(2,myHardQuestions[randQuestion].incorrectAnswer2, false);
-                    break;
-                case 1:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(0,myHardQuestions[randQuestion].correctAnswer, true);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(1,myHardQuestions[randQuestion].incorrectAnswer2, false);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(2,myHardQuestions[randQuestion].incorrectAnswer1, false);
-                    
-                    break;
-                case 2:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(0,myHardQuestions[randQuestion].incorrectAnswer1, false);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(1,myHardQuestions[randQuestion].correctAnswer, true);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(2,myHardQuestions[randQuestion].incorrectAnswer2, false);
-                    break;
-                case 3:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(0,myHardQuestions[randQuestion].incorrectAnswer1, false);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(1,myHardQuestions[randQuestion].incorrectAnswer2, false);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(2,myHardQuestions[randQuestion].correctAnswer, true);
-
-                    break;
-                case 4:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(0,myHardQuestions[randQuestion].incorrectAnswer2, false);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
-                    changeButtonNameClient(1,myHardQuestions[randQuestion].correctAnswer, true);
-                    thisButtonScript.setCorrect();
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(2,myHardQuestions[randQuestion].incorrectAnswer1, false);
-                    break;
-                case 5:
-                    thisButtonScript = myButtons[0].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer2);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(0,myHardQuestions[randQuestion].incorrectAnswer2, false);
-                    thisButtonScript = myButtons[1].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].incorrectAnswer1);
-                    thisButtonScript.setIncorrect();
-                    changeButtonNameClient(1,myHardQuestions[randQuestion].incorrectAnswer1, false);
-                    thisButtonScript = myButtons[2].GetComponent<ButtonTestScript>();
-                    thisButtonScript.setTextName(myHardQuestions[randQuestion].correctAnswer);
-                    thisButtonScript.setCorrect();
-                    changeButtonNameClient(2,myHardQuestions[randQuestion].correctAnswer, true);
-                    break;
-
-            }
-            
-            changeCharadeText(myHardQuestions[randQuestion].correctAnswer);
-            myHardQuestions.RemoveAt(randQuestion);
-            currentPhase++;
-
-
-
-        }
-
-        
 
     }
 
@@ -857,29 +747,13 @@ public class ButtonController : NetworkBehaviour
          
     }
     public void changePhase(int phase){
-        Debug.Log("in Change phase");
-        if(phase == 0){
-            //  Debug.Log("were in if == 0 and Phase is: " +currentPhase);
-            // Debug.Log("setting quesiton phase to easy");
-            currentQuestionPhase = questionPhase.Easy;
-        }
-        // if(phase == 4){
-        //      Debug.Log("phase is 1 so starting questionaire phase");
-            
-        //     currentQuestionPhase = questionPhase.Medium;
-        //     Debug.Log("setting question phase to medium");
-        // }
-        // if(phase == 8){
-        //     currentQuestionPhase = questionPhase.Hard;
-        //     // Debug.Log("Settin question phase to be hard");
-        // }
-        if(phase == 12){
+        Debug.Log("in change phase and phase is: " + phase);
+        if(phase == 13){
             currentQuestionPhase = questionPhase.Questionaire;
             startQuestionairephase();
         }
         
     }
-
     public void changeCharadeText(string newInput){
         TMP_Text myText = charadeText.GetComponent<TMP_Text>();
         myText.text = "Gesture:\n" + newInput;
@@ -890,11 +764,30 @@ public class ButtonController : NetworkBehaviour
         myText.text = "Confidence : " +  newInput;
 
     }
+    [ClientRpc]
+    public void hideConfidenceText(){
+        confidenceText.SetActive(false);
+    }
+
+    [ClientRpc]
+    public void showConfidenceText(){
+        confidenceText.SetActive(true);
+    }
 
     
     public void startQuestionairephase(){
         // Debug.Log("Starting the questionaire phase");
-        storeDataInFile();
+        confidenceText.SetActive(false);
+        hideConfidenceText();
+        
+        Debug.Log("Databuttonname size is: " +dataButtonName.Count);
+        Debug.Log("DataCorrectButtonName size is: " +dataCorrectButtonName.Count);
+        Debug.Log("data button chose name: " +dataButtonChosenName.Count);
+        Debug.Log("DataChoseCorrect size is: " +dataChoseCorrect.Count);
+        Debug.Log("DataConfidenceInt size is: " +dataconfidenceInt.Count);
+        Debug.Log("DataStartInterval size is: " +dataStartInterval.Count);
+        Debug.Log("DataEndInterval" + dataEndInterval.Count);
+        hideWhatToGesture();
         searchForSceneController();
         quesitonairePhase = true;
         showConfidenceButtons = true;
@@ -910,17 +803,10 @@ public class ButtonController : NetworkBehaviour
         setP2ConfidenceButtonson();
         changeQuestionaireTextPlayer1(myQuestions[questionaireNumberP1]);
         changeQuestionaireTextPlayer2(myQuestions[questionaireNumberP2]);
-        changeQuestionaireTextOnClient();
 
     
     }
-    [ClientRpc]
-    public void changeQuestionaireTextOnClient(){
-        changeQuestionaireTextPlayer1(myQuestions[questionaireNumberP1]);
-        changeQuestionaireTextPlayer2(myQuestions[questionaireNumberP2]);
-        questionaireNumberP1++;
-        questionaireNumberP2++;
-    }
+    
     [ClientRpc]
     public void setP2ConfidenceButtonson(){
         Questionaire.SetActive(true);
@@ -936,7 +822,7 @@ public class ButtonController : NetworkBehaviour
             // Debug.Log("animating the questionaire up");
             if(Questionaire.transform.position.y < max_height){
             Vector3 myPosition = Questionaire.transform.position;
-            myPosition.y += .001f;
+            myPosition.y += .003f;
             Questionaire.transform.position = myPosition;
             }else{
                 questionaireUp = false;
@@ -949,24 +835,36 @@ public class ButtonController : NetworkBehaviour
         // Debug.Log("animating the questionaire down");
         if(Questionaire.transform.position.y > min_height){
             Vector3 myPosition = Questionaire.transform.position;
-            myPosition.y -= .001f;
+            myPosition.y -= .003f;
             Questionaire.transform.position = myPosition;
         }else{
             questionaireDown = false;
             
         }
     }
-
     public void changeQuestionaireTextPlayer1(string newInput){
        TMP_Text myText = GuesserText.GetComponent<TMP_Text>();
         myText.text = newInput;
+        changeP1QuestionaireTextOnClient(newInput);
 
     }
      public void changeQuestionaireTextPlayer2(string newInput){
         // Debug.Log("setting player 2 text component");
        TMP_Text myText = CharadeText.GetComponent<TMP_Text>();
         myText.text = newInput;
+        changeP2QuestionaireTextOnClient(newInput);
 
+    }
+
+    [ClientRpc]
+    public void changeP1QuestionaireTextOnClient(string newInput){
+        TMP_Text myText = GuesserText.GetComponent<TMP_Text>();
+        myText.text = newInput;
+    }
+     [ClientRpc]
+    public void changeP2QuestionaireTextOnClient(string newInput){
+        TMP_Text myText = CharadeText.GetComponent<TMP_Text>();
+        myText.text = newInput;
     }
     
     [Command(requiresAuthority = false)]
@@ -977,20 +875,23 @@ public class ButtonController : NetworkBehaviour
     public void setServeranimateP1Down(){
         hideP1Confidence = true;
     }
-    
+
     public void changeQuestionairePhasePlayer1(int phase){
-        if(questionaireNumberP1 == 2){
-            setServeranimateP1Down();
+        if(questionaireNumberP1 == 18){
+            TlXQuestions = true;
+        }
+        if(questionaireNumberP1 == 24){
+            p1Waiting = true;
+            hideConfidenceButtons = true;
             
             // Debug.Log("putting one in numWaiting questionaire");
-            incrementNumWaitingInQuestionaire();
+            numWaitingInQuestionaire++;
             // Debug.Log("about to do if statement and numWaiting is" + numWaitingInQuestionaire);
             // Debug.Log("Chaning the questionaire text player 1");
             changeQuestionaireTextPlayer1("Please wait for your partner\n to finish answering their questions");
-            if(numWaitingInQuestionaire >= 2){
+            if(numWaitingInQuestionaire == 2){
                 Debug.Log("resesting to beginning");
-                setServerQuestionaireDown();
-                hideBothConfidence();
+                questionaireDown = true;
                 resetToBeginning();
                 
 
@@ -999,23 +900,27 @@ public class ButtonController : NetworkBehaviour
             return;
         }
         // Debug.Log("changin it back to myquestions");
-        changeQuestionaireTextPlayer1(myQuestions[phase]);
         questionaireNumberP1++;
+        changeQuestionaireTextPlayer1(myQuestions[questionaireNumberP1]);
+        
         
 
     }
      public void changeQuestionairePhasePlayer2(int phase){
-        if(questionaireNumberP2 == 2){
-            setServeranimateP2Down();
+         if(questionaireNumberP2 == 18){
+            P2TlXQuestions = true;
+        }
+        if(questionaireNumberP2 == 24){
+            p2Waiting = true;
+            hideConfidenceButtonsP2 = true;
 
             // Debug.Log("putting one in numWaiting questionaire");
-            incrementNumWaitingInQuestionaire();
+            numWaitingInQuestionaire++;
             // Debug.Log("changing the player 2 text");
-            changeQuestionaireTextPlayer2("Please wait for your partner to finish answering their questions");
-            if(numWaitingInQuestionaire >= 2){
-                Debug.Log("Reseting to begining");
-                setServerQuestionaireDown();
-                hideBothConfidence();
+            changeQuestionaireTextPlayer2("Please wait for your partner\n to finish answering their questions");
+            if(numWaitingInQuestionaire == 2){
+                // Debug.Log("Reseting to begining");
+                questionaireDown = true;
                 resetToBeginning();
             
                 
@@ -1025,8 +930,9 @@ public class ButtonController : NetworkBehaviour
             
         }
         // Debug.Log("changin it back to myquestions and the current phase is " + phase);
-        changeQuestionaireTextPlayer2(myQuestions[phase]);
         questionaireNumberP2++;
+        changeQuestionaireTextPlayer2(myQuestions[questionaireNumberP2]);
+        
 
     }
     [Command(requiresAuthority = false)]
@@ -1071,18 +977,59 @@ public class ButtonController : NetworkBehaviour
         //searchForSceneControllerServer();
         
     }
+    [ClientRpc]
+    public void resetTlx(){
+        P11Button.GetComponentInChildren<TMP_Text>().text = "Strongly Disagree:\n1";
+        P21Button.GetComponentInChildren<TMP_Text>().text = "Strongly Disagree:\n1";
+        P17Button.GetComponentInChildren<TMP_Text>().text = "Strongly Agree:\n7";
+        P27Button.GetComponentInChildren<TMP_Text>().text = "Strongly Agree:\n7";
+
+        
+        foreach(var x in p1TlxButtons){
+            x.SetActive(false);
+        }
+       
+        foreach(var x in p2TlxButtons){
+            x.SetActive(false);
+        }
+        
+    }
 
     
-    [Command(requiresAuthority = false)]
     public void resetToBeginning(){
         // Debug.Log("seting wrist scales on server");
+        confidenceText.SetActive(true);
+        showConfidenceText();
+        p1Waiting = false;
+        p2Waiting = false;
+        resetTlx();
+        P11Button.GetComponentInChildren<TMP_Text>().text = "Strongly Disagree:\n1";
+        P21Button.GetComponentInChildren<TMP_Text>().text = "Strongly Disagree:\n1";
+        P17Button.GetComponentInChildren<TMP_Text>().text = "Strongly Agree\n7";
+        P27Button.GetComponentInChildren<TMP_Text>().text = "Strongly Agree\n7";
+        Vector3 myVector = p1ConfidenceParent.transform.position;
+        myVector.x -= .25f;
+        Quaternion myRotation = p1ConfidenceParent.transform.rotation;
+        p1ConfidenceParent.transform.SetPositionAndRotation(myVector,myRotation);
+        myVector = p2ConfidenceParent.transform.position;
+        myVector.x +=.25f;
+        myRotation = p2ConfidenceParent.transform.rotation;
+        p2ConfidenceParent.transform.SetPositionAndRotation(myVector,myRotation);
+       
+        foreach(var x in p1TlxButtons){
+            x.SetActive(false);
+        }
+        
+        foreach(var x in p2TlxButtons){
+            x.SetActive(false);
+        }
 
         
         questionaireNumSeen++;
         if(questionaireNumSeen == 1){
-            mySceneController.myNetworkManager.setPlayerWristScales(.5f);
+            mySceneController.myNetworkManager.setPlayerWristScales(handSizeOrder[orderOfhands][1]);
         }else if(questionaireNumSeen == 2){
-            mySceneController.myNetworkManager.setPlayerWristScales(1.5f);
+            mySceneController.myNetworkManager.setPlayerWristScales(handSizeOrder[orderOfhands][2]);
         }
         currentPhase = 0;
         numWaitingInQuestionaire = 0;
@@ -1091,6 +1038,7 @@ public class ButtonController : NetworkBehaviour
         quesitonairePhase = false;
         currentQuestionPhase = questionPhase.Easy;
         if(questionaireNumSeen == 3){
+            storeDataInFile();
             TFPText.SetActive(true);
             endGameClient();
             
@@ -1151,10 +1099,13 @@ public class ButtonController : NetworkBehaviour
 
     [Server]
     public void storeButtonName(string Button1, string Button2, string Button3){
-        Debug.Log("Got these three strings: " + Button1 + ", " +Button2 + ", " + Button3);
-        dataButtonName.Add(Button1);
-        dataButtonName.Add(Button2);
-        dataButtonName.Add(Button3);
+        // Debug.Log("Got these three strings: " + Button1 + ", " +Button2 + ", " + Button3);
+        string input1 = combineString(Button1);
+        string input2 = combineString(Button2);
+        string input3 = combineString(Button3);
+        dataButtonName.Add(input1);
+        dataButtonName.Add(input2);
+        dataButtonName.Add(input3);
         
 
     }
@@ -1164,6 +1115,7 @@ public class ButtonController : NetworkBehaviour
         }
         return fileName +"v_"+i.ToString() +".csv";
     }
+    
 
     [Server]
     public void storeDataInFile(){
@@ -1171,63 +1123,83 @@ public class ButtonController : NetworkBehaviour
         string path = "D:" + "CharadeLogs/Charade_" + player1Pid + "_" + player2Pid + "_Results";
         path = makeFileName(path);
         Debug.Log("Saving session data to: " + path);
-            Debug.Log("Databuttonname size is: " +dataButtonName.Count);
-            Debug.Log("DataCorrectButtonName size is: " +dataCorrectButtonName.Count);
-            Debug.Log("data button chose name: " +dataButtonChosenName.Count);
-            Debug.Log("DataChoseCorrect size is: " +dataChoseCorrect.Count);
-            Debug.Log("DataConfidenceInt size is: " +dataconfidenceInt.Count);
-            Debug.Log("DataStartInterval size is: " +dataStartInterval.Count);
-            Debug.Log("DataEndInterval" + dataEndInterval.Count);
         
-        // using(StreamWriter myWriter = new StreamWriter(path)){
-        //     myWriter.WriteLine("Int Pid,Act Pid,Button1, Button2, Button3, Button Answered, Correct Button, got correct, Confidence of Guess,Time when Seen, Time when pressed, Time Difference");
-        //     Debug.Log("Databuttonname size is: " +dataButtonName.Count);
-        //         Debug.Log("DataCorrectButtonName size is: " +dataCorrectButtonName.Count);
-        //         Debug.Log("DataChoseCorrect size is: " +dataChoseCorrect.Count);
-        //         Debug.Log("DataConfidenceInt size is: " +dataconfidenceInt.Count);
-        //         Debug.Log("DataStartInterval size is: " +dataStartInterval.Count);
-        //         Debug.Log("DataEndInterval" + dataEndInterval.Count);
-        //     for(int i = 0; i < 12; i++){
-        //         Debug.Log("player 1 pid is : " + player1Pid.ToString());
-        //         Debug.Log("player 2 pid is : " +player2Pid.ToString());
-        //         Debug.Log("Button1 is : " +dataButtonName[0]);
-        //         Debug.Log("Button2 is : " +dataButtonName[1]);
-        //         Debug.Log("Button 3 is : " +dataButtonName[2]);
-        //         Debug.Log("Correct button name : " +dataCorrectButtonName[0]);
-        //         Debug.Log("They chose correct : " +dataChoseCorrect[0]);
-        //         Debug.Log("Confidence int is : " +dataconfidenceInt[0]);
-        //         Debug.Log("Time start is  : " +dataStartInterval[0].ToString());
-        //         Debug.Log("Time end is  : " +dataEndInterval[0].ToString());
-        //         Debug.Log("Time difference is : " +(float.Parse(dataEndInterval[0]) - float.Parse(dataStartInterval[0])).ToString());
+        using(StreamWriter myWriter = new StreamWriter(path)){
+            myWriter.WriteLine("Int Pid,Act Pid,Button1, Button2, Button3, Button Answered, Correct Button, got correct, Confidence of Guess,Time when Seen, Time when pressed, Time Difference, HandSize");
+            Debug.Log("Databuttonname size is: " +dataButtonName.Count);
+            for(int j = 0; j < 3; j++){
+                for(int i = 0; i < 12; i++){
+                    
 
-                
+                    
 
-        //         //myWriter.WriteLine(player1Pid.ToString() + "," + player2Pid.ToString() + "," + dataButtonName[0] + "," + dataButtonName[1] + "," + dataButtonName[2] + "," + dataCorrectButtonName[0] + "," + dataChoseCorrect[0] +"," + dataconfidenceInt[0] + ","  + dataStartInterval[0].ToString() + "," +  dataEndInterval[0].ToString() + "," + (float.Parse(dataEndInterval[0]) - float.Parse(dataStartInterval[0])).ToString());
-        //         myWriter.Write(player1Pid.ToString() + ",");
-        //         myWriter.Write(player2Pid.ToString() + ",");
-        //         myWriter.Write(dataButtonName[0] + ",");
-        //         myWriter.Write(dataButtonName[1] + ",");
-        //         myWriter.Write(dataButtonName[2] + ",");
-        //         myWriter.Write(dataCorrectButtonName[0] + ",");
-        //         myWriter.Write(dataChoseCorrect[0] +",");
-        //         myWriter.Write(dataconfidenceInt[0] + ",");
-        //         myWriter.Write(dataStartInterval[0].ToString() + ",");
-        //         myWriter.Write(dataEndInterval[0].ToString() + ",");
-        //         myWriter.Write((float.Parse(dataEndInterval[0]) - float.Parse(dataStartInterval[0])).ToString());
+                    myWriter.WriteLine(player1Pid.ToString() + "," + player2Pid.ToString() + "," + dataButtonName[0] + "," + dataButtonName[1] + "," + dataButtonName[2] + "," + dataButtonChosenName[0] + "," + dataCorrectButtonName[0] + "," + dataChoseCorrect[0] +"," + dataconfidenceInt[0] + ","  + dataStartInterval[0].ToString() + "," +  dataEndInterval[0].ToString() + "," + (float.Parse(dataEndInterval[0]) - float.Parse(dataStartInterval[0])).ToString() + "," + dataHandSize[j]);
+                    // myWriter.Write(player1Pid.ToString() + ",");
+                    // myWriter.Write(player2Pid.ToString() + ",");
+                    // myWriter.Write(dataButtonName[0] + ",");
+                    // myWriter.Write(dataButtonName[1] + ",");
+                    // myWriter.Write(dataButtonName[2] + ",");
+                    // myWriter.Write(dataCorrectButtonName[0] + ",");
+                    // myWriter.Write(dataChoseCorrect[0] +",");
+                    // myWriter.Write(dataconfidenceInt[0] + ",");
+                    // myWriter.Write(dataStartInterval[0].ToString() + ",");
+                    // myWriter.Write(dataEndInterval[0].ToString() + ",");
+                    // myWriter.Write((float.Parse(dataEndInterval[0]) - float.Parse(dataStartInterval[0])).ToString());
 
-        //         dataButtonChosenName.RemoveAt(0);
-        //         dataButtonName.RemoveAt(0);
-        //         dataButtonName.RemoveAt(0);
-        //         dataButtonName.RemoveAt(0);
-        //         dataCorrectButtonName.RemoveAt(0);
-        //         dataChoseCorrect.RemoveAt(0);
-        //         dataconfidenceInt.RemoveAt(0);
-        //         dataStartInterval.RemoveAt(0);
-        //         dataEndInterval.RemoveAt(0);
+                    dataButtonChosenName.RemoveAt(0);
+                    dataButtonName.RemoveAt(0);
+                    dataButtonName.RemoveAt(0);
+                    dataButtonName.RemoveAt(0);
+                    dataCorrectButtonName.RemoveAt(0);
+                    dataChoseCorrect.RemoveAt(0);
+                    dataconfidenceInt.RemoveAt(0);
+                    dataStartInterval.RemoveAt(0);
+                    dataEndInterval.RemoveAt(0);
+                    
 
-                
-        //     }
-        // }
+                    
+                }
+                myWriter.WriteLine("end of phase");
+            }
+        path = "D:" + "CharadeLogs/Charade_" + player1Pid + "_" + player2Pid + "_QuestionaireResults";
+        path = makeFileName(path);
+        Debug.Log("saving the quesitonaire pahse to : " + path);
+        using(StreamWriter myQuestionaireWriter = new StreamWriter(path)){
+            myQuestionaireWriter.WriteLine("Int ID, Act ID,Question Asked, Player1Answer,Player2Answer");
+            Debug.Log("datap1Questionaire size is" + dataP1QuestionaireAnswer.Count);
+            Debug.Log("datap2questionairesize is : " + dataP2QuestionaireAnswer.Count);
+            for(int y = 0; y < 3; y++){
+                for(int x = 0; x < 25; x++){
+                    string myQuestion = combineString(myQuestions[x]);
+                    myQuestion = combineStringComma(myQuestion);
+                    myQuestionaireWriter.WriteLine(player1Pid.ToString() + "," + player2Pid.ToString() + "," + myQuestion + "," +  dataP1QuestionaireAnswer[0] + "," + dataP2QuestionaireAnswer[0] + "," + dataHandSize[y]);
+                    dataP1QuestionaireAnswer.RemoveAt(0);
+                    dataP2QuestionaireAnswer.RemoveAt(0);
+                }
+            }
+
+        }
+
+        }
+    }
+
+    public string combineString(string toSplit){
+        string[] mySplits = toSplit.Split('\n');
+        string myReturn = "";
+        foreach(string x in mySplits){
+            myReturn += " " + x;
+        }
+        return myReturn;
+
+    }
+    
+    public string combineStringComma(string toSplit){
+        string[] mySplits = toSplit.Split(',');
+        string myReturn = "";
+        foreach(string x in mySplits){
+            myReturn += " " + x;
+        }
+        return myReturn;
     }
    
 

@@ -12,6 +12,8 @@ TagManager:
   - P2QuestionaireButtons
   - SceneController
   - ButtonController
+  - P1tlxButtons
+  - P2TlxButtons
   layers:
   - Default
   - TransparentFX

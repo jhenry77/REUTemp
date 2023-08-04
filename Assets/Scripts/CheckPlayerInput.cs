@@ -58,7 +58,7 @@ public class CheckPlayerInput : NetworkBehaviour
     }
 
     public void setScale(float input){
-        Debug.Log("calling setScale in checkPlayerInput");
+        // Debug.Log("calling setScale in checkPlayerInput");
         HandVizualizerObject.GetComponent<NetworkedHandVIz>().scale = input;
         setScaleLocal(input);
         

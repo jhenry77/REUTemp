@@ -40,7 +40,7 @@ public class SceneController : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(numWaiting == 3){
+        if(numWaiting == 2){
             Debug.Log("creating controller");
             GameObject controller = Instantiate(SpawnPrefab, SpawnLocation.position, SpawnLocation.rotation);
             NetworkServer.Spawn(controller);
@@ -50,6 +50,20 @@ public class SceneController : NetworkBehaviour
             
             findTheController();
             myButtonController.setInitialNumbers();
+            int player2Pid = myNetworkManager.player2PID;
+            myButtonController.orderOfhands = ((player2Pid /2 ) % 6) - 1;
+            myNetworkManager.setPlayerWristScales(myButtonController.handSizeOrder[myButtonController.orderOfhands][0]);
+            Debug.Log("My inital scale is +  " + myButtonController.handSizeOrder[myButtonController.orderOfhands][0]);
+            for(int i = 0; i < 3; i++){
+            if(myButtonController.handSizeOrder[myButtonController.orderOfhands][i] == 1f){
+                myButtonController.dataHandSize.Add("Fitted");
+            }else if(myButtonController.handSizeOrder[myButtonController.orderOfhands][i] == 1.25f){
+                myButtonController.dataHandSize.Add("Large");
+            }else if(myButtonController.handSizeOrder[myButtonController.orderOfhands][i] == .75f){
+                myButtonController.dataHandSize.Add("Small");
+            }
+            }
+            
         }
         if(clientFindController){
             findTheController();
@@ -164,32 +178,7 @@ public class SceneController : NetworkBehaviour
         }
 
 
-        [Client]
-        public void activedCalibartionButtonP1(){
-            Debug.Log("activated p1 calibration button");
-            PlayEnviroment.SetActive(true);
-            Player1Enviroment.SetActive(false);
-            Debug.Log("p1 activated calibration button");
-            MoveOnButton.SetActive(false);
-            Enviroment.SetActive(false);
-            myNetworkManager.movePlayer1();
-            ServersetPlayer1SecneOff();
-            UpdateServerNumWaiting();
-        }
-
-         [Client]
-        public void activedCalibartionButtonP2(){
-            Debug.Log("activated p2 calibration button");
-            PlayEnviroment.SetActive(true);
-            Player2Enviroment.SetActive(false);
-            CombinedEnviorment.SetActive(true);
-            MoveOnButtonP2.SetActive(false);
-            EnviromentP2.SetActive(false);
-            myNetworkManager.movePlayer2();
-            ServersetPlayer2SecneOff();
-            UpdateServerNumWaiting();
-            
-        }
+       
         [Command(requiresAuthority = false)]
         public void ServersetPlayer1SecneOff(){
             Player1Enviroment.SetActive(false);
@@ -209,6 +198,37 @@ public class SceneController : NetworkBehaviour
 
         }
 
+        [Server]
+        public void activatedCalibrationButtonP1(){
+            numWaiting++;
+            moveOnPlayer1();
+        }
+        [ClientRpc]
+        public void moveOnPlayer1(){
+            Debug.Log("activated calibration button p1");
+            PlayEnviroment.SetActive(true);
+            Player1Enviroment.SetActive(false);
+            MoveOnButton.SetActive(false);
+            Enviroment.SetActive(false);
+            myNetworkManager.movePlayer1();
+            ServersetPlayer1SecneOff();
+        }
+        [Server]
+        public void activatedCalibrationButtonP2(){
+            numWaiting++;
+            moveOnPlayer2();
+        }
+        [ClientRpc]
+        public void moveOnPlayer2(){
+            Debug.Log("activated p2 calibration button");
+            PlayEnviroment.SetActive(true);
+            Player2Enviroment.SetActive(false);
+            CombinedEnviorment.SetActive(true);
+            MoveOnButtonP2.SetActive(false);
+            EnviromentP2.SetActive(false);
+            myNetworkManager.movePlayer2();
+            ServersetPlayer2SecneOff();
+        }
         
 
 }

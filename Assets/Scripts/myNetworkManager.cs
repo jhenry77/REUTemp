@@ -47,8 +47,8 @@ using Mirror;
     {
         base.OnStartServer();
         serverCamera.SetActive(true);
-        enviroment1.SetActive(false);
-        enviroment2.SetActive(false);
+        //enviroment1.SetActive(false);
+        //enviroment2.SetActive(false);
         combinedEnviorment.SetActive(true);
      }
 
@@ -109,7 +109,7 @@ using Mirror;
     }
 
     public void setPlayerWristScales(float percentage){
-        Debug.Log("setting player wrist scales");
+        // Debug.Log("setting player wrist scales");
         GameObject[] players = GameObject.FindGameObjectsWithTag("NetworkPlayer");
         foreach(var x in players){
             x.GetComponent<CheckPlayerInput>().setScale(percentage);

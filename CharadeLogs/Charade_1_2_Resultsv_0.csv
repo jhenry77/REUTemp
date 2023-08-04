@@ -1,0 +1,40 @@
+Int Pid,Act Pid,Button1, Button2, Button3, Button Answered, Correct Button, got correct, Confidence of Guess,Time when Seen, Time when pressed, Time Difference, HandSize
+1,2, 2, 5, 3, 5, 5,True,7,120.1111,131.2227,11.1116,Fitted
+1,2, 2, 9, 5, 5, 5,True,7,146.0972,153.6089,7.511703,Fitted
+1,2, 7, 4, 9, 7, 7,True,7,165.8194,170.3423,4.522903,Fitted
+1,2, Gambling, Monopoly, Winning a Race, Gambling, Gambling,True,7,179.7222,187.5352,7.813004,Fitted
+1,2, Baseball, Basketball, Golf, Golf, Golf,True,7,199.375,222.3217,22.9467,Fitted
+1,2, 5, 3, 9, 9, 9,True,7,232.4444,240.9707,8.526306,Fitted
+1,2, 3, 9, 7, 9, 9,True,7,253.3056,259.2152,5.909607,Fitted
+1,2, Swimming, Diving, Kayaking, Diving, Diving,True,7,272.7361,277.8567,5.120575,Fitted
+1,2, Karate, Weight lifting, Boxing, Boxing, Boxing,True,7,288.5,292.6482,4.148193,Fitted
+1,2, Baseball, Golf, Tennis, Baseball, Baseball,True,6,305.7222,328.3008,22.57861,Fitted
+1,2, Football, Baseball, Softball, Softball, Softball,True,5,338.8889,343.5838,4.694916,Fitted
+1,2, Cello, Violin, Guitar, Violin, Violin,True,7,354.7778,361.4328,6.654999,Fitted
+end of phase
+1,2, Black Mirror, Indiana Jones, The Office, Indiana Jones, Indiana Jones,True,7,700.625,757.2028,56.57782,Small
+1,2, 4, 1, 7, 7, 7,True,7,767.7083,773.1713,5.463013,Small
+1,2, Triangle, Ukelele, Guitar, Ukelele, Ukelele,True,5,794.2361,813.2864,19.05029,Small
+1,2, 1, 2, 4, 4, 4,True,7,821.9167,824.6412,2.724487,Small
+1,2, Swimming, Rowing, Kayaking, Kayaking, Kayaking,True,7,838.5555,845.174,6.61853,Small
+1,2, Swimming, Kayaking, Pitcher, Swimming, Swimming,True,7,854.9167,879.8539,24.93719,Small
+1,2, Segway, Boat, HorseBack Riding, Segway, Segway,True,7,895.5139,917.5134,21.99951,Small
+1,2, Gymnastics, Skiing, Snowboarding, Snowboarding, Snowboarding,True,7,928.6805,939.9763,11.29584,Small
+1,2, 6, 1, 4, 6, 6,True,7,952.25,958.6093,6.359314,Small
+1,2, Football, Baseball, Volleyball, Football, Football,True,7,969.3055,1022.283,52.97754,Small
+1,2, Table Tennis, Tennis, Baseball, Table Tennis, Table Tennis,True,7,1037.444,1068.943,31.49902,Small
+1,2, Lasagna, Spaghetti, Steak, Steak, Steak,True,7,1077.889,1084.474,6.584961,Small
+end of phase
+1,2, 6, 8, 3, 8, 3,False,7,1216.986,1240.263,23.27698,Large
+1,2, Sloth, Rhino, Swan, Sloth, Sloth,True,7,1250.208,1257.265,7.057007,Large
+1,2, Plane, Car, Motorcycle, Car, Motorcycle,False,7,1265.931,1267.974,2.042969,Large
+1,2, Kazoo, Trombone, Harmonica, Trombone, Harmonica,False,7,1276.681,1279.721,3.039917,Large
+1,2, 3, 5, 1, 3, 1,False,7,1288.139,1289.464,1.324951,Large
+1,2, Frog, Rabbit, Mouse, Mouse, Frog,False,7,1298.403,1300.761,2.358032,Large
+1,2, 2, 7, 9, 7, 7,True,7,1309.181,1310.902,1.720947,Large
+1,2, Flight Attendant, Nurse, Construction Worker, Flight Attendant, Nurse,False,5,1319.431,1322.007,2.575928,Large
+1,2, Judge, Truck Driver, Secretary, Truck Driver, Secretary,False,7,1331.403,1332.173,0.7700195,Large
+1,2, Flute, Clarinet, Trumpet, Clarinet, Clarinet,True,7,1340.75,1341.747,0.9969482,Large
+1,2, Climbing, Bobsledding, Ice Skaing, Climbing, Ice Skaing,False,7,1350.611,1351.195,0.5839844,Large
+1,2, 8, 7, 6, 7, 8,False,4,1361.347,1363.397,2.049927,Large
+end of phase
