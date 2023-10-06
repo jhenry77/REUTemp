@@ -44,7 +44,6 @@ public class animationScriptConfidenceButtons : NetworkBehaviour
         }else{
             myButtonController.confidencePressed = false;
             myButtonController.showConfidenceButtons = false;
-            myButtonController.setSafteyTextoffClient();
         }
         
 

@@ -97,7 +97,7 @@ public class ButtonTestScript : NetworkBehaviour
         pressedButton = myController.combineString(pressedButton);
         // Debug.Log("adding a button to button chosen name");
         myController.dataButtonChosenName.Add(pressedButton);
-        myController.setSafteyTExtOnClient();
+           
         myController.hideWhatToGesture();
         
         if(thisButtonInfo == buttonInfo.Correct && thisButtonType == buttonInfoType.Answers){
@@ -118,15 +118,7 @@ public class ButtonTestScript : NetworkBehaviour
         
     }
    
-    [ClientRpc]
-    public void setSafteyTextOn(){
-        myController.SafetyText.SetActive(true);
-
-    }
-    [ClientRpc]
-    public void setSafteyTextoff(){
-        myController.SafetyText.SetActive(false);
-    }
+    
 
 
 
@@ -217,7 +209,7 @@ public class ButtonTestScript : NetworkBehaviour
         }
         myController.confidencePressed = true;
         if(myController.quesitonairePhase == true){
-             myController.dataP1QuestionaireAnswer.Add("1");
+            myController.dataP1QuestionaireAnswer.Add("1");
             myController.changeQuestionairePhasePlayer1(myController.questionaireNumberP1);
             myController.hideConfidenceButtons = true;
 
@@ -226,7 +218,6 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence1Button");
         myController.dataconfidenceInt.Add("1");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
 
@@ -249,7 +240,7 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence2Button");
         myController.dataconfidenceInt.Add("2");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
+           
         myController.updateGuesserCorrectText(myController.gotCorrect);    
         }
 
@@ -271,7 +262,7 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence3Button");
         myController.dataconfidenceInt.Add("3");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
+           
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
     }
@@ -291,7 +282,6 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence4Button");
         myController.dataconfidenceInt.Add("4");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
     }
@@ -311,7 +301,6 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence5Button");
         myController.dataconfidenceInt.Add("5");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
     }
@@ -331,7 +320,6 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence6Button");
         myController.dataconfidenceInt.Add("6");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
     }
@@ -350,7 +338,7 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence7Button");
         myController.dataconfidenceInt.Add("7");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
+           
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
     }
@@ -369,7 +357,7 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence8Button");
         myController.dataconfidenceInt.Add("8");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
+           
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
     }
@@ -388,7 +376,7 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence9Button");
         myController.dataconfidenceInt.Add("9");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
+           
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
     }
@@ -407,7 +395,7 @@ public class ButtonTestScript : NetworkBehaviour
         Debug.Log("PressedConfidence10Button");
         myController.dataconfidenceInt.Add("10");
         myController.hideConfidenceButtons = true;
-        myController.setSafteyTExtOnClient();
+           
         myController.updateGuesserCorrectText(myController.gotCorrect);
         }
     }

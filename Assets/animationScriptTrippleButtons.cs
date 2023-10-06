@@ -41,7 +41,6 @@ public class animationScriptTrippleButtons : NetworkBehaviour
             myButtonController.pressed = false;
             myButtonController.showAnimation = false;
             myButtonController.dataStartInterval.Add(Time.time.ToString());
-            myButtonController.setSafteyTextoffClient();
             myButtonController.showWhatToGesture();
             myButtonController.turnOffCorrectText();
             

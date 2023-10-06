@@ -82,7 +82,6 @@ namespace UnityEngine.XR.Hands
 
         void LateUpdate()
         {
-            Debug.Log("scale is " + scale);
             m_LeftWristLoc.transform.localScale = new Vector3(scale, scale, scale);
             m_RightWristLoc.transform.localScale = new Vector3(scale, scale, scale);
         }

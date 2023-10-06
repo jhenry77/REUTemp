@@ -15,11 +15,9 @@ using System.IO;
 public class ButtonController : NetworkBehaviour
 {
     public GameObject TFPText;
-    public GameObject SafetyText;
 
     public GameObject charadeText;
 
-    public GameObject Confidence;
     public GameObject GuesserText;
     public GameObject CharadeText;
     public GameObject Questionaire;
@@ -133,16 +131,7 @@ public class ButtonController : NetworkBehaviour
     }
 
 
-    [ClientRpc]
-    public void setSafteyTExtOnClient(){
-        SafetyText.SetActive(true);
-
-    }
-    [ClientRpc]
-    public void setSafteyTextoffClient(){
-        SafetyText.SetActive(false);
-
-    }
+   
     [ClientRpc]
     public void showWhatToGesture(){
         charadeText.SetActive(true);
@@ -550,11 +539,11 @@ public class ButtonController : NetworkBehaviour
         myQuestions.Add("It sometimes seemed like my own hands\n came into contact with the buttons.");
         myQuestions.Add("I thought the virtual hands on\n the screen looked realistic.");
         myQuestions.Add("I was so immersed in the virtual\n environment, it seemed real.");
-        myQuestions.Add("I felt like using my virtual hands to communicate was fun.");
+        myQuestions.Add("I felt like using my virtual hands\n to communicate was fun.");
         myQuestions.Add("I felt like I could very efficiently use\n my virtual hands to complete the task.");
-        myQuestions.Add("I felt as if I could cause movements\n of the virtual hands.");
-        myQuestions.Add("It felt as if I could control movements\n of the virtual hands.");
-        myQuestions.Add("I felt as if the virtual hands moved just like\n I wanted them to, as if they were obeying my own will");
+        myQuestions.Add("I felt as if I could cause\n movements of the virtual hands.");
+        myQuestions.Add("It felt as if I could control\n movements of the virtual hands.");
+        myQuestions.Add("I felt as if the virtual hands moved\n just like I wanted them to,\n as if they were obeying my own will");
         myQuestions.Add("My thoughts were clear to my partner.");
         myQuestions.Add("My partner’s thoughts were clear to me.");
         myQuestions.Add("It was easy to understand my partner.");
@@ -562,12 +551,12 @@ public class ButtonController : NetworkBehaviour
         myQuestions.Add("My partner had difficulty understanding me");
         myQuestions.Add("The other person let me know that\n I was communicating effectively.");
         myQuestions.Add("Nothing was accomplished.");
-        myQuestions.Add("I was very dissatisfied with the\n communication with my partner during the game.");
+        myQuestions.Add("I was very dissatisfied with the communication\n with my partner during the game.");
         myQuestions.Add("I felt that during the game I was able\n to present myself as I wanted the other person to view me.");
         myQuestions.Add("I did not enjoy communicating with\n my partner during the game.");
         myQuestions.Add("How mentally demanding was the task?");
         myQuestions.Add("How physically demanding was the task?");
-        myQuestions.Add("How hurried or rushed was the pace of the task?");
+        myQuestions.Add("How hurried or rushed was\n the pace of the task?");
         myQuestions.Add("How successful were you in accomplishing\n what you were asked to do?");
         myQuestions.Add("How hard did you have to work to accomplish\n your level of performance?");
         myQuestions.Add("How insecure, discouraged, irritated,\n stressed, and annoyed were you?");
@@ -759,11 +748,7 @@ public class ButtonController : NetworkBehaviour
         myText.text = "Gesture:\n" + newInput;
     }
 
-    public void setConfidence(string newInput){
-        TMP_Text myText = Confidence.GetComponent<TMP_Text>();
-        myText.text = "Confidence : " +  newInput;
-
-    }
+   
     [ClientRpc]
     public void hideConfidenceText(){
         confidenceText.SetActive(false);
@@ -884,10 +869,7 @@ public class ButtonController : NetworkBehaviour
             p1Waiting = true;
             hideConfidenceButtons = true;
             
-            // Debug.Log("putting one in numWaiting questionaire");
             numWaitingInQuestionaire++;
-            // Debug.Log("about to do if statement and numWaiting is" + numWaitingInQuestionaire);
-            // Debug.Log("Chaning the questionaire text player 1");
             changeQuestionaireTextPlayer1("Please wait for your partner\n to finish answering their questions");
             if(numWaitingInQuestionaire == 2){
                 Debug.Log("resesting to beginning");

@@ -43,7 +43,6 @@ public class animationScriptP2ConfidenceButtons : NetworkBehaviour
         }else{
             myButtonController.showConfidenceButtonsP2 = false;
             Debug.Log("setting saftey text off");
-            myButtonController.setSafteyTextoffClient();
             myButtonController.P2confidencePressed = false;
         }
         
