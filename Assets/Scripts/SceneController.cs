@@ -53,7 +53,7 @@ public class SceneController : NetworkBehaviour
             int player2Pid = myNetworkManager.player2PID;
             myButtonController.orderOfhands = ((player2Pid /2 ) % 6) - 1;
             myNetworkManager.setPlayerWristScales(myButtonController.handSizeOrder[myButtonController.orderOfhands][0]);
-            Debug.Log("My inital scale is +  " + myButtonController.handSizeOrder[myButtonController.orderOfhands][0]);
+            Debug.Log("My inital scale is   " + myButtonController.handSizeOrder[myButtonController.orderOfhands][0]);
             for(int i = 0; i < 3; i++){
             if(myButtonController.handSizeOrder[myButtonController.orderOfhands][i] == 1f){
                 myButtonController.dataHandSize.Add("Fitted");

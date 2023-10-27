@@ -552,7 +552,7 @@ public class ButtonController : NetworkBehaviour
         myQuestions.Add("The other person let me know that\n I was communicating effectively.");
         myQuestions.Add("Nothing was accomplished.");
         myQuestions.Add("I was very dissatisfied with the communication\n with my partner during the game.");
-        myQuestions.Add("I felt that during the game I was able\n to present myself as I wanted the other person to view me.");
+        myQuestions.Add("I felt that during the game I was able\n to present myself as I wanted\n the other person to view me.");
         myQuestions.Add("I did not enjoy communicating with\n my partner during the game.");
         myQuestions.Add("How mentally demanding was the task?");
         myQuestions.Add("How physically demanding was the task?");
@@ -1152,8 +1152,9 @@ public class ButtonController : NetworkBehaviour
             Debug.Log("datap2questionairesize is : " + dataP2QuestionaireAnswer.Count);
             for(int y = 0; y < 3; y++){
                 for(int x = 0; x < 25; x++){
-                    string myQuestion = combineString(myQuestions[x]);
-                    myQuestion = combineStringComma(myQuestion);
+                    string myQuestion = myQuestions[x];
+                    myQuestion = myQuestion.Replace("\n","");
+                    myQuestion = myQuestion.Replace(",","");
                     myQuestionaireWriter.WriteLine(player1Pid.ToString() + "," + player2Pid.ToString() + "," + myQuestion + "," +  dataP1QuestionaireAnswer[0] + "," + dataP2QuestionaireAnswer[0] + "," + dataHandSize[y]);
                     dataP1QuestionaireAnswer.RemoveAt(0);
                     dataP2QuestionaireAnswer.RemoveAt(0);
