@@ -109,8 +109,8 @@ public class ButtonController : NetworkBehaviour
     public bool timeForRandom = false;
     public int orderOfhands;
     public bool pressed = false;
-    public bool confidencePressed = false;
-    public bool P2confidencePressed = false;
+    public bool confidencePressed = true;
+    public bool P2confidencePressed = true;
     public bool TlXQuestions = false;
     public bool P2TlXQuestions = false;
     public GameObject[] p1TlxButtons;
@@ -143,7 +143,7 @@ public class ButtonController : NetworkBehaviour
     }
     
     
-        
+    
     
 
 
@@ -212,6 +212,7 @@ public class ButtonController : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("confience pressed currenlty is" + confidencePressed);
         myNumberQuestions.Add(new NumbersClass{
             correctAnswer = "5",
             incorrectAnswer1 = "2",
@@ -764,6 +765,7 @@ public class ButtonController : NetworkBehaviour
         // Debug.Log("Starting the questionaire phase");
         confidenceText.SetActive(false);
         hideConfidenceText();
+        turnOffCorrectText();
         
         Debug.Log("Databuttonname size is: " +dataButtonName.Count);
         Debug.Log("DataCorrectButtonName size is: " +dataCorrectButtonName.Count);

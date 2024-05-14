@@ -1,0 +1,40 @@
+Int Pid,Act Pid,Button1, Button2, Button3, Button Answered, Correct Button, got correct, Confidence of Guess,Time when Seen, Time when pressed, Time Difference, HandSize
+3,4, Frog, Mouse, Rabbit, Frog, Frog,True,5,651.3055,679.8319,28.52643,Fitted
+3,4, Gambling, Winning a Race, Monopoly, Gambling, Gambling,True,4,696.3195,715.9788,19.6593,Fitted
+3,4, Plane, Motorcycle, Car, Motorcycle, Motorcycle,True,7,724.4167,727.9474,3.530701,Fitted
+3,4, 3, 9, 7, 9, 9,True,5,735.9167,747.6594,11.74274,Fitted
+3,4, Baseball, Golf, Basketball, Baseball, Golf,False,5,756.3333,761.8828,5.5495,Fitted
+3,4, Weight lifting, Boxing, Karate, Boxing, Boxing,True,5,770.4861,774.8461,4.360046,Fitted
+3,4, 7, 4, 1, 7, 7,True,5,783.1805,790.7935,7.613037,Fitted
+3,4, Tennis, Golf, Baseball, Baseball, Baseball,True,3,799.2222,808.8987,9.676453,Fitted
+3,4, 4, 1, 6, 6, 6,True,6,817.3333,821.2667,3.933411,Fitted
+3,4, Secretary, Truck Driver, Judge, Secretary, Secretary,True,4,829.8333,838.3036,8.470276,Fitted
+3,4, Rowing, Swimming, Kayaking, Rowing, Kayaking,False,5,846.6945,854.4456,7.751099,Fitted
+3,4, Trumpet, Flute, Clarinet, Trumpet, Clarinet,False,2,864.0417,873.5282,9.486511,Fitted
+end of phase
+3,4, Boat, Segway, HorseBack Riding, HorseBack Riding, Segway,False,2,1064.764,1074.951,10.18701,Large
+3,4, Kayaking, Swimming, Pitcher, Swimming, Swimming,True,5,1083.681,1087.945,4.263916,Large
+3,4, Gymnastics, Skiing, Snowboarding, Skiing, Snowboarding,False,2,1096.625,1127.188,30.56299,Large
+3,4, 5, 9, 3, 9, 9,True,7,1135.597,1141.762,6.164917,Large
+3,4, 3, 5, 1, 1, 1,True,7,1150.097,1153.061,2.963989,Large
+3,4, Triangle, Guitar, Ukelele, Ukelele, Ukelele,True,6,1161.569,1172.402,10.83301,Large
+3,4, Construction Worker, Nurse, Flight Attendant, Nurse, Nurse,True,1,1180.583,1199.759,19.17603,Large
+3,4, Kayaking, Swimming, Diving, Diving, Diving,True,5,1208.917,1216.407,7.48999,Large
+3,4, 6, 8, 3, 3, 3,True,6,1224.444,1227.68,3.236084,Large
+3,4, 2, 7, 9, 7, 7,True,7,1237.403,1241.167,3.764038,Large
+3,4, 5, 2, 3, 5, 5,True,7,1249.597,1252.172,2.574951,Large
+3,4, Cello, Guitar, Violin, Violin, Violin,True,6,1260.181,1264.538,4.356934,Large
+end of phase
+3,4, 9, 7, 4, 7, 7,True,6,1425.861,1431.578,5.717041,Small
+3,4, 5, 9, 2, 5, 5,True,6,1442.764,1445.875,3.110962,Small
+3,4, Baseball, Tennis, Table Tennis, Table Tennis, Table Tennis,True,3,1456.097,1463.413,7.315918,Small
+3,4, Sloth, Swan, Rhino, Sloth, Sloth,True,4,1471.403,1483.783,12.38,Small
+3,4, 7, 6, 8, 8, 8,True,6,1494.167,1500.379,6.212036,Small
+3,4, Baseball, Volleyball, Football, Football, Football,True,5,1508.417,1515.429,7.011963,Small
+3,4, Football, Softball, Baseball, Softball, Softball,True,3,1523.792,1532.664,8.871948,Small
+3,4, Trombone, Kazoo, Harmonica, Harmonica, Harmonica,True,5,1540.792,1545.865,5.072998,Small
+3,4, The Office, Black Mirror, Indiana Jones, Black Mirror, Indiana Jones,False,1,1554.097,1569.024,14.927,Small
+3,4, Spaghetti, Steak, Lasagna, Steak, Steak,True,5,1577.347,1589.359,12.01196,Small
+3,4, Bobsledding, Climbing, Ice Skaing, Ice Skaing, Ice Skaing,True,3,1597.389,1613.842,16.453,Small
+3,4, 1, 4, 2, 4, 4,True,7,1621.958,1625,3.041992,Small
+end of phase

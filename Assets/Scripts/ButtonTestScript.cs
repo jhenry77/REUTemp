@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 using TMPro;
+using System;
 
 public class ButtonTestScript : NetworkBehaviour
 {
@@ -204,6 +205,7 @@ public class ButtonTestScript : NetworkBehaviour
     // }
      [Server]
     public void pressConfidence1Server(){
+        Debug.Log("We found our confidence pressed to be" +  myController.confidencePressed);
         if(myController.confidencePressed){
             return;
         }
@@ -225,6 +227,7 @@ public class ButtonTestScript : NetworkBehaviour
 
     [Server]
     public void pressConfidence2Server(){
+        Debug.Log("We found our confidence pressed to be" +  myController.confidencePressed);
         if(myController.confidencePressed){
             return;
         }
@@ -247,6 +250,7 @@ public class ButtonTestScript : NetworkBehaviour
     }
     [Server]
     public void pressConfidence3Server(){
+        Debug.Log("We found our confidence pressed to be" +  myController.confidencePressed);
         if(myController.confidencePressed){
             return;
         }
@@ -268,6 +272,7 @@ public class ButtonTestScript : NetworkBehaviour
     }
     [Server]
     public void pressConfidence4Server(){
+        Debug.Log("We found our confidence pressed to be" +  myController.confidencePressed);
         if(myController.confidencePressed){
             return;
         }
@@ -287,6 +292,7 @@ public class ButtonTestScript : NetworkBehaviour
     }
     [Server]
     public void pressConfidence5Server(){
+        Debug.Log("We found our confidence pressed to be" +  myController.confidencePressed);
         if(myController.confidencePressed){
             return;
         }
@@ -306,6 +312,7 @@ public class ButtonTestScript : NetworkBehaviour
     }
     [Server]
     public void pressConfidence6Server(){
+        Debug.Log("We found our confidence pressed to be" +  myController.confidencePressed);
         if(myController.confidencePressed){
             return;
         }
@@ -325,6 +332,7 @@ public class ButtonTestScript : NetworkBehaviour
     }
     [Server]
     public void pressConfidence7Server(){
+        Debug.Log("We found our confidence pressed to be" +  myController.confidencePressed);
          if(myController.confidencePressed){
             return;
         }

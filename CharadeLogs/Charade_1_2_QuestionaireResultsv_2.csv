@@ -1,0 +1,76 @@
+Int ID, Act ID,Question Asked, Player1Answer,Player2Answer
+1,2,I felt as if the virtualhands were part of my body.,7,6,Fitted
+1,2,It sometimes seemed like my own hands came into contact with the buttons.,6,5,Fitted
+1,2,I thought the virtual hands on the screen looked realistic.,6,6,Fitted
+1,2,I was so immersed in the virtual environment it seemed real.,6,4,Fitted
+1,2,I felt like using my virtual hands to communicate was fun.,6,7,Fitted
+1,2,I felt like I could very efficiently use my virtual hands to complete the task.,6,5,Fitted
+1,2,I felt as if I could cause movements of the virtual hands.,7,6,Fitted
+1,2,It felt as if I could control movements of the virtual hands.,7,6,Fitted
+1,2,I felt as if the virtual hands moved just like I wanted them to as if they were obeying my own will,5,5,Fitted
+1,2,My thoughts were clear to my partner.,5,6,Fitted
+1,2,My partner’s thoughts were clear to me.,7,7,Fitted
+1,2,It was easy to understand my partner.,7,6,Fitted
+1,2,Understanding my partner was difficult.,3,2,Fitted
+1,2,My partner had difficulty understanding me,2,6,Fitted
+1,2,The other person let me know that I was communicating effectively.,5,1,Fitted
+1,2,Nothing was accomplished.,1,1,Fitted
+1,2,I was very dissatisfied with the communication with my partner during the game.,2,3,Fitted
+1,2,I felt that during the game I was able to present myself as I wanted the other person to view me.,6,6,Fitted
+1,2,I did not enjoy communicating with my partner during the game.,1,1,Fitted
+1,2,How mentally demanding was the task?,4,3,Fitted
+1,2,How physically demanding was the task?,3,5,Fitted
+1,2,How hurried or rushed was the pace of the task?,7,2,Fitted
+1,2,How successful were you in accomplishing what you were asked to do?,8,8,Fitted
+1,2,How hard did you have to work to accomplish your level of performance?,3,2,Fitted
+1,2,How insecure discouraged irritated stressed and annoyed were you?,3,1,Fitted
+1,2,I felt as if the virtualhands were part of my body.,6,6,Small
+1,2,It sometimes seemed like my own hands came into contact with the buttons.,6,5,Small
+1,2,I thought the virtual hands on the screen looked realistic.,5,6,Small
+1,2,I was so immersed in the virtual environment it seemed real.,4,1,Small
+1,2,I felt like using my virtual hands to communicate was fun.,7,7,Small
+1,2,I felt like I could very efficiently use my virtual hands to complete the task.,7,4,Small
+1,2,I felt as if I could cause movements of the virtual hands.,6,5,Small
+1,2,It felt as if I could control movements of the virtual hands.,6,6,Small
+1,2,I felt as if the virtual hands moved just like I wanted them to as if they were obeying my own will,6,5,Small
+1,2,My thoughts were clear to my partner.,6,5,Small
+1,2,My partner’s thoughts were clear to me.,6,4,Small
+1,2,It was easy to understand my partner.,6,4,Small
+1,2,Understanding my partner was difficult.,1,3,Small
+1,2,My partner had difficulty understanding me,2,2,Small
+1,2,The other person let me know that I was communicating effectively.,6,1,Small
+1,2,Nothing was accomplished.,2,1,Small
+1,2,I was very dissatisfied with the communication with my partner during the game.,1,4,Small
+1,2,I felt that during the game I was able to present myself as I wanted the other person to view me.,6,6,Small
+1,2,I did not enjoy communicating with my partner during the game.,1,1,Small
+1,2,How mentally demanding was the task?,3,2,Small
+1,2,How physically demanding was the task?,4,4,Small
+1,2,How hurried or rushed was the pace of the task?,7,1,Small
+1,2,How successful were you in accomplishing what you were asked to do?,8,9,Small
+1,2,How hard did you have to work to accomplish your level of performance?,5,3,Small
+1,2,How insecure discouraged irritated stressed and annoyed were you?,3,1,Small
+1,2,I felt as if the virtualhands were part of my body.,5,6,Large
+1,2,It sometimes seemed like my own hands came into contact with the buttons.,6,5,Large
+1,2,I thought the virtual hands on the screen looked realistic.,5,4,Large
+1,2,I was so immersed in the virtual environment it seemed real.,6,2,Large
+1,2,I felt like using my virtual hands to communicate was fun.,7,7,Large
+1,2,I felt like I could very efficiently use my virtual hands to complete the task.,7,6,Large
+1,2,I felt as if I could cause movements of the virtual hands.,7,6,Large
+1,2,It felt as if I could control movements of the virtual hands.,7,6,Large
+1,2,I felt as if the virtual hands moved just like I wanted them to as if they were obeying my own will,6,6,Large
+1,2,My thoughts were clear to my partner.,6,7,Large
+1,2,My partner’s thoughts were clear to me.,7,6,Large
+1,2,It was easy to understand my partner.,7,6,Large
+1,2,Understanding my partner was difficult.,1,2,Large
+1,2,My partner had difficulty understanding me,2,2,Large
+1,2,The other person let me know that I was communicating effectively.,5,5,Large
+1,2,Nothing was accomplished.,1,1,Large
+1,2,I was very dissatisfied with the communication with my partner during the game.,2,1,Large
+1,2,I felt that during the game I was able to present myself as I wanted the other person to view me.,6,6,Large
+1,2,I did not enjoy communicating with my partner during the game.,1,1,Large
+1,2,How mentally demanding was the task?,4,2,Large
+1,2,How physically demanding was the task?,3,3,Large
+1,2,How hurried or rushed was the pace of the task?,6,1,Large
+1,2,How successful were you in accomplishing what you were asked to do?,10,10,Large
+1,2,How hard did you have to work to accomplish your level of performance?,3,4,Large
+1,2,How insecure discouraged irritated stressed and annoyed were you?,5,1,Large

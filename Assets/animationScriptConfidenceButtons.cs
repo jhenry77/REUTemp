@@ -42,6 +42,7 @@ public class animationScriptConfidenceButtons : NetworkBehaviour
             Quaternion myRotation = gameObject.transform.rotation;
             gameObject.transform.SetPositionAndRotation(myVector,myRotation);
         }else{
+            Debug.Log("Setting confidence pressed to false");
             myButtonController.confidencePressed = false;
             myButtonController.showConfidenceButtons = false;
         }
