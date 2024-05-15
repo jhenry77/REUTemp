@@ -60,7 +60,7 @@ public class animationScriptP2ConfidenceButtons : NetworkBehaviour
                  }else{
                     if(myButtonController.P2TlXQuestions){
                         Vector3 myVector = gameObject.transform.position;
-                        myVector.x -=.25f;
+                        myVector.x -=.15f;
                         Quaternion myRotation = gameObject.transform.rotation;
                         gameObject.transform.SetPositionAndRotation(myVector,myRotation);
                         setTlxButtonsActive();
