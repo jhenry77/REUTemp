@@ -535,7 +535,7 @@ public class ButtonController : NetworkBehaviour
 
 
 
-
+        myQuestions.Add("It felt easy to preform the gesture I intended to.");
         myQuestions.Add("I felt as if the virtual\nhands were part of my body.");
         myQuestions.Add("It sometimes seemed like my own hands\n came into contact with the buttons.");
         myQuestions.Add("I thought the virtual hands on\n the screen looked realistic.");
@@ -788,7 +788,7 @@ public class ButtonController : NetworkBehaviour
         Questionaire.SetActive(true);
         questionaireUp = true;
         setP2ConfidenceButtonson();
-        changeQuestionaireTextPlayer1(myQuestions[questionaireNumberP1]);
+        changeQuestionaireTextPlayer1(myQuestions[questionaireNumberP1+1]);
         changeQuestionaireTextPlayer2(myQuestions[questionaireNumberP2]);
 
     
@@ -885,16 +885,16 @@ public class ButtonController : NetworkBehaviour
         }
         // Debug.Log("changin it back to myquestions");
         questionaireNumberP1++;
-        changeQuestionaireTextPlayer1(myQuestions[questionaireNumberP1]);
+        changeQuestionaireTextPlayer1(myQuestions[questionaireNumberP1+1]);
         
         
 
     }
      public void changeQuestionairePhasePlayer2(int phase){
-         if(questionaireNumberP2 == 18){
+         if(questionaireNumberP2 == 19){
             P2TlXQuestions = true;
         }
-        if(questionaireNumberP2 == 24){
+        if(questionaireNumberP2 == 25){
             p2Waiting = true;
             hideConfidenceButtonsP2 = true;
 
@@ -1153,8 +1153,13 @@ public class ButtonController : NetworkBehaviour
             Debug.Log("datap1Questionaire size is" + dataP1QuestionaireAnswer.Count);
             Debug.Log("datap2questionairesize is : " + dataP2QuestionaireAnswer.Count);
             for(int y = 0; y < 3; y++){
-                for(int x = 0; x < 25; x++){
-                    string myQuestion = myQuestions[x];
+                string myQuestion = myQuestions[0];
+                myQuestion = myQuestion.Replace("\n","");
+                myQuestion = myQuestion.Replace(",","");
+                myQuestionaireWriter.WriteLine(player1Pid.ToString() + "," + player2Pid.ToString() + "," + myQuestion + ","  + "N/A" + "," + dataP2QuestionaireAnswer[0] + "," + dataHandSize[y]);
+                dataP2QuestionaireAnswer.RemoveAt(0);
+                for(int x = 1; x < 26; x++){
+                    myQuestion = myQuestions[x];
                     myQuestion = myQuestion.Replace("\n","");
                     myQuestion = myQuestion.Replace(",","");
                     myQuestionaireWriter.WriteLine(player1Pid.ToString() + "," + player2Pid.ToString() + "," + myQuestion + "," +  dataP1QuestionaireAnswer[0] + "," + dataP2QuestionaireAnswer[0] + "," + dataHandSize[y]);

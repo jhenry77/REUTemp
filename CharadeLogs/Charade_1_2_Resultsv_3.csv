@@ -1,40 +1,40 @@
 Int Pid,Act Pid,Button1, Button2, Button3, Button Answered, Correct Button, got correct, Confidence of Guess,Time when Seen, Time when pressed, Time Difference, HandSize
-1,2, Secretary, Judge, Truck Driver, Judge, Secretary,False,2,28.48611,31.87121,3.385099,Fitted
-1,2, Climbing, Bobsledding, Ice Skaing, Climbing, Ice Skaing,False,5,40.08333,44.02058,3.937252,Fitted
-1,2, Guitar, Violin, Cello, Violin, Violin,True,5,57.38889,61.76648,4.37759,Fitted
-1,2, 4, 9, 7, 9, 7,False,5,70.70834,71.25178,0.5434341,Fitted
-1,2, Mouse, Rabbit, Frog, Rabbit, Frog,False,3,80.43056,80.74722,0.3166656,Fitted
-1,2, 7, 1, 4, 1, 7,False,4,90.20834,93.00271,2.794365,Fitted
-1,2, Weight lifting, Karate, Boxing, Karate, Boxing,False,4,104.8333,107.957,3.123703,Fitted
-1,2, 6, 7, 8, 8, 8,True,5,120.0278,122.6573,2.629501,Fitted
-1,2, Car, Plane, Motorcycle, Plane, Motorcycle,False,7,131.1111,131.5312,0.420105,Fitted
-1,2, Kayaking, Swimming, Diving, Diving, Diving,True,3,142.1389,143.2802,1.141296,Fitted
-1,2, 4, 1, 2, 1, 4,False,6,151.4028,152.681,1.278198,Fitted
-1,2, 2, 9, 5, 2, 5,False,4,160.4306,161.2251,0.7944946,Fitted
+1,2, Baseball, Softball, Football, Softball, Softball,True,4,25.06944,28.63357,3.564129,Fitted
+1,2, Violin, Cello, Guitar, Cello, Violin,False,4,36.20833,36.87699,0.668663,Fitted
+1,2, Gambling, Monopoly, Winning a Race, Monopoly, Gambling,False,4,44.54167,44.63499,0.09331894,Fitted
+1,2, Volleyball, Baseball, Football, Baseball, Football,False,4,52.31945,52.50151,0.1820602,Fitted
+1,2, Baseball, Basketball, Golf, Basketball, Golf,False,4,60.63889,60.842,0.2031097,Fitted
+1,2, Lasagna, Steak, Spaghetti, Steak, Steak,True,4,68.48611,69.51658,1.030472,Fitted
+1,2, Kazoo, Harmonica, Trombone, Harmonica, Harmonica,True,4,77.18056,77.30954,0.1289825,Fitted
+1,2, 1, 4, 7, 4, 7,False,4,85.20834,86.24813,1.039787,Fitted
+1,2, Truck Driver, Judge, Secretary, Judge, Secretary,False,4,94.09722,94.1189,0.02167511,Fitted
+1,2, Flight Attendant, Construction Worker, Nurse, Construction Worker, Nurse,False,4,101.9306,102.9858,1.055199,Fitted
+1,2, Flute, Clarinet, Trumpet, Clarinet, Clarinet,True,4,110.625,110.9451,0.3200989,Fitted
+1,2, Rabbit, Frog, Mouse, Frog, Frog,True,4,118.6667,118.9992,0.3324966,Fitted
 end of phase
-1,2, 8, 3, 6, 3, 3,True,4,320.1667,324.1039,3.937225,Small
-1,2, Kazoo, Trombone, Harmonica, Trombone, Harmonica,False,5,333.2778,334.9318,1.653992,Small
-1,2, Kayaking, Swimming, Rowing, Swimming, Kayaking,False,4,345.5972,348.1035,2.506287,Small
-1,2, Kayaking, Swimming, Pitcher, Swimming, Swimming,True,4,355.7083,356.5639,0.8555908,Small
-1,2, Ukelele, Guitar, Triangle, Guitar, Ukelele,False,4,364.2361,372.6695,8.43338,Small
-1,2, Boat, Segway, HorseBack Riding, Segway, Segway,True,4,382.1667,382.7434,0.5767212,Small
-1,2, Baseball, Basketball, Golf, Basketball, Golf,False,4,391.0833,393.3581,2.27478,Small
-1,2, Clarinet, Trumpet, Flute, Trumpet, Clarinet,False,2,401.5278,402.4752,0.9473877,Small
-1,2, Gymnastics, Skiing, Snowboarding, Skiing, Snowboarding,False,4,410.6528,410.9538,0.3009949,Small
-1,2, Softball, Football, Baseball, Football, Softball,False,4,419.9306,421.2465,1.315887,Small
-1,2, Nurse, Flight Attendant, Construction Worker, Flight Attendant, Nurse,False,4,429.1806,430.4703,1.289703,Small
-1,2, 1, 3, 5, 3, 1,False,4,439.1945,442.5535,3.359009,Small
+1,2, Black Mirror, Indiana Jones, The Office, Indiana Jones, Indiana Jones,True,4,277.6111,285.8386,8.227478,Small
+1,2, 1, 5, 3, 5, 1,False,4,293.7222,295.5822,1.860016,Small
+1,2, Kayaking, Swimming, Pitcher, Swimming, Swimming,True,4,303.7222,304.8539,1.131714,Small
+1,2, HorseBack Riding, Segway, Boat, Segway, Segway,True,6,313.125,313.879,0.7539978,Small
+1,2, 7, 8, 6, 8, 8,True,5,326.8472,327.0732,0.2260132,Small
+1,2, 9, 2, 7, 2, 7,False,4,334.6111,336.8186,2.207489,Small
+1,2, Climbing, Bobsledding, Ice Skaing, Bobsledding, Ice Skaing,False,4,347.1389,347.6739,0.5350037,Small
+1,2, 4, 7, 9, 7, 7,True,4,355.5695,357.5129,1.94342,Small
+1,2, Kayaking, Swimming, Diving, Swimming, Diving,False,4,366.1667,366.5201,0.3534241,Small
+1,2, 3, 7, 9, 7, 9,False,4,377.7222,378.7868,1.064606,Small
+1,2, Skiing, Gymnastics, Snowboarding, Gymnastics, Snowboarding,False,4,386.7222,387.5839,0.8616943,Small
+1,2, Triangle, Ukelele, Guitar, Ukelele, Ukelele,True,4,395.5,395.7426,0.2426147,Small
 end of phase
-1,2, Table Tennis, Tennis, Baseball, Tennis, Table Tennis,False,4,586,587.3366,1.336609,Large
-1,2, Spaghetti, Steak, Lasagna, Steak, Steak,True,4,613.1389,615.0272,1.888306,Large
-1,2, Golf, Baseball, Tennis, Baseball, Baseball,True,4,626.0278,627.0626,1.034851,Large
-1,2, 3, 7, 9, 7, 9,False,4,635.6805,636.2819,0.6014404,Large
-1,2, 6, 1, 4, 1, 6,False,4,643.8195,643.9386,0.1190796,Large
-1,2, Black Mirror, Indiana Jones, The Office, Indiana Jones, Indiana Jones,True,4,651.4445,654.212,2.767456,Large
-1,2, 5, 3, 2, 3, 5,False,4,663.9583,664.5211,0.5628052,Large
-1,2, 5, 9, 3, 9, 9,True,3,674.4861,676.8447,2.358643,Large
-1,2, Rhino, Swan, Sloth, Swan, Sloth,False,3,687.1667,688.4074,1.240723,Large
-1,2, Baseball, Volleyball, Football, Volleyball, Football,False,4,697.1945,699.2526,2.058105,Large
-1,2, Monopoly, Gambling, Winning a Race, Gambling, Gambling,True,4,708.7083,711.0002,2.29187,Large
-1,2, 2, 7, 9, 7, 7,True,3,720.0555,725.3525,5.296997,Large
+1,2, Swan, Rhino, Sloth, Rhino, Sloth,False,4,553.5278,556.8169,3.289124,Large
+1,2, Kayaking, Swimming, Rowing, Swimming, Kayaking,False,4,564.4305,564.6027,0.1722412,Large
+1,2, 1, 4, 2, 4, 4,True,4,572.1945,572.3231,0.1286011,Large
+1,2, Golf, Baseball, Tennis, Baseball, Baseball,True,4,579.9861,580.1076,0.121521,Large
+1,2, 5, 3, 2, 3, 5,False,3,588.3055,588.4604,0.1549072,Large
+1,2, Plane, Car, Motorcycle, Car, Motorcycle,False,2,596.25,596.9869,0.7368774,Large
+1,2, 5, 3, 9, 3, 9,False,4,605.2778,606.0562,0.7784424,Large
+1,2, 8, 3, 6, 3, 3,True,4,613.8195,615.5283,1.708801,Large
+1,2, 6, 1, 4, 1, 6,False,4,623.5,625.4095,1.909485,Large
+1,2, 5, 2, 9, 2, 5,False,4,633.125,633.6791,0.5540771,Large
+1,2, Table Tennis, Tennis, Baseball, Tennis, Table Tennis,False,4,642.4722,642.941,0.46875,Large
+1,2, Weight lifting, Karate, Boxing, Karate, Boxing,False,4,650.7361,650.8155,0.07940674,Large
 end of phase
